@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ourtunes.main;
+package tunes.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,14 +15,14 @@ import javafx.stage.Stage;
  *
  * @author Pepe15224
  */
-public class OurTunes extends Application {
+public class Tunes extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/ourtunes/gui/OurTunesView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/tunes/gui/TunesView.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.setTitle("Our Tunes");
         stage.setScene(scene);
         stage.show();
     }
