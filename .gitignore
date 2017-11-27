@@ -3,7 +3,7 @@
 
 ### NetBeans ###
 nbproject/private/
-build-jar/
+build/
 nbbuild/
 dist/
 nbdist/
@@ -83,3 +83,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+OurTunes/build/built-jar.properties
