@@ -36,7 +36,7 @@ public class TunesModel {
         Media media = new Media(filePath);
         mediaplayer = new MediaPlayer(media);
         isPlaying=true;
-        mediaplayer.play(); 
+        mediaplayer.play();    
         }      
     }
     public List<Songs> getAllSongs() throws SQLException

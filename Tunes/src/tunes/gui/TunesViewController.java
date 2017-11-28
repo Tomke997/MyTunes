@@ -71,14 +71,20 @@ public class TunesViewController implements Initializable {
     private void play(ActionEvent event) throws SQLException {
         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
         model.playSelectedSong(selectedSong);
-    }
-
-    @FXML
-    private void previous(ActionEvent event) {
         
     }
 
     @FXML
+    private void previous(ActionEvent event) {
+        songsTable.getSelectionModel().selectPrevious();
+        Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
+        model.playSelectedSong(selectedSong);
+    }
+
+    @FXML
     private void next(ActionEvent event) {
+     songsTable.getSelectionModel().selectNext();
+     Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
+     model.playSelectedSong(selectedSong);
     }
 }
