@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ourtunes.gui;
+package tunes.gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +18,7 @@ import javafx.scene.control.Label;
  *
  * @author Pepe15224
  */
-public class OurTunesViewController implements Initializable {
+public class TunesViewController implements Initializable {
 
     @FXML
     private Button button;
