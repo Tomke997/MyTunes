@@ -31,6 +31,7 @@ public class TunesModel {
     private BllManager manager = new BllManager();
     private Parent root;
     private Stage stage = new Stage(); 
+    
     public void playSelectedSong(Songs selectedSong)
     { 
         if(isPlaying == true)
@@ -48,19 +49,23 @@ public class TunesModel {
         mediaplayer.play();    
         }      
     }
+    
     public List<Songs> getAllSongs() throws SQLException
     {
       return manager.getAllSongs();
     }
+    
     public void addSong(Songs song)
 {
     manager.addSong(song);
 }
+    
     public void closeWindow(Button button)
     {
        Stage stage = (Stage) button.getScene().getWindow();
        stage.close();
     }
+    
     public void popUpWindow(String path, String title,TunesViewController parent) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
@@ -71,5 +76,10 @@ public class TunesModel {
         stage.setTitle(title);
         stage.setScene(new Scene((Parent) root));
         stage.showAndWait();
+    }
+    
+    public void remove(Songs selectedSong)
+    {
+        manager.remove(selectedSong);
     }
 }
