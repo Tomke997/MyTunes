@@ -38,15 +38,14 @@ public class TunesNewSongController implements Initializable {
     private TextField txtFile;
     @FXML
     private Button saveButton;
-    private TunesModel model = new TunesModel();
     @FXML
     private ComboBox<String> categoryBox;
     @FXML
     private Button chooseButton;
-    private String filePath;
     @FXML
     private Button moreButton;
-
+    private TunesModel model = new TunesModel();
+    private String filePath;
     /**
      * Initializes the controller class.
      */
