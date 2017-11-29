@@ -103,7 +103,8 @@ public class TunesViewController implements Initializable {
 
     @FXML
     private void close(ActionEvent event) {
-        model.closeWindow(closeButton);
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+       stage.close();
     }
 
     @FXML

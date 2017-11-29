@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import tunes.be.Songs;
 
 /**
@@ -56,7 +57,8 @@ public class TunesNewSongController implements Initializable {
 
     @FXML
     private void cancel(ActionEvent event) {
-        model.closeWindow(cancelButton);
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+       stage.close();
     }
     public void setParent(TunesViewController parent)
     {
@@ -68,16 +70,13 @@ public class TunesNewSongController implements Initializable {
         parent.addIceCream(new Songs(-1, txtTitle.getText(),
                 txtArtist.getText(),categoryBox.getSelectionModel().getSelectedItem(),
                 txtTime.getText(), txtFile.getText()));
-        
-        model.closeWindow(saveButton);
     }
 
     @FXML
     private void chooseLocation(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter filterMp3 = new FileChooser.ExtensionFilter("select mp3","*mp3");
-        FileChooser.ExtensionFilter filterWav = new FileChooser.ExtensionFilter("select wav","*wav");
-        fileChooser.getExtensionFilters().addAll(filterMp3,filterWav);
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("select mp3 or wav","*wav","*mp3");
+        fileChooser.getExtensionFilters().add(filter);
         File file = fileChooser.showOpenDialog(null);
         filePath = file.toString();
         
