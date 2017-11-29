@@ -44,13 +44,16 @@ public class TunesNewSongController implements Initializable {
     @FXML
     private Button chooseButton;
     private String filePath;
+    @FXML
+    private Button moreButton;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        categoryBox.getItems().addAll("Rock","Pop","Hip-Hop");
+        categoryBox.getItems().setAll("Rock","Pop","Hip-Hop");
+             
         categoryBox.getSelectionModel().selectFirst();
     }    
 
@@ -82,5 +85,11 @@ public class TunesNewSongController implements Initializable {
         filePath = file.toString();
         
         txtFile.setText(filePath);
+    }
+
+    @FXML
+    private void more(ActionEvent event) 
+    {
+        categoryBox.getItems().setAll("Electronic","Jazz","Reggae","Blues","Country","Folk");
     }
 }
