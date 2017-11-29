@@ -8,8 +8,10 @@ package tunes.gui;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
+import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import tunes.be.Songs;
 import tunes.bll.BllManager;
 
@@ -47,4 +49,9 @@ public class TunesModel {
 {
     manager.addSong(song);
 }
+    public void closeWindow(Button button)
+    {
+        Stage stage = (Stage) button.getScene().getWindow();
+       stage.close();
+    }
 }
