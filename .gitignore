@@ -2,36 +2,19 @@
 # Created by https://www.gitignore.io/api/netbeans,java
 
 ### NetBeans ###
-nbproject/private/
+*nbproject/private/
 build/
 nbbuild/
 dist/
 nbdist/
 .nb-gradle/
 
-### Audio ###
-*.aif
-*.iff
-*.m3u
-*.m4a
-*.mid
-*.mp3
-*.mpa
-*.ra
-*.wav
-*.wma
 
 ### Java ###
 *.class
 
 # BlueJ files
 *.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -43,57 +26,16 @@ hs_err_pid*
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-# Windows
-# =========================
-
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-OurTunes/build/built-jar.properties
-/Tunes/nbproject/private/
-OurTunes/build/built-jar.properties
+/CommandPatternExample/nbproject/private/
+/IteratorExample/nbproject/private/
+/FactoeryMethodExample/nbproject/private/
+/FactoryMethodExample/nbproject/private/
+/AnswersInClass/nbproject/private/
+/3LayerExamplePatient/nbproject/private/
+/ControlStructures/nbproject/private/
+/ListsAndArrays/nbproject/private/
+/PolymorphismExample/nbproject/private/
+/SearchingLists/nbproject/private/
+/TemplateMethodPattern/nbproject/private/
+/StrategyPatternExample/nbproject/private/
+/ReadWriteBE/nbproject/private/
