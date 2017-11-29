@@ -90,6 +90,6 @@ public class TunesNewSongController implements Initializable {
     @FXML
     private void more(ActionEvent event) 
     {
-        categoryBox.getItems().setAll("Electronic","Jazz","Reggae","Blues","Country","Folk");
+        categoryBox.getItems().setAll("Rock","Pop","Hip-Hop","Electronic","Jazz","Reggae","Blues","Country","Folk");
     }
 }
