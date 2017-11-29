@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,13 +33,12 @@ public class ConnectionManager {
          ResultSet rs = pstmt.executeQuery();
             while(rs.next())
             {
-             Songs s = new Songs();
-             s.setId(rs.getInt("id"));
-             s.setTitle(rs.getString("title"));
-             s.setArtist(rs.getString("artist"));
-             s.setCategory(rs.getString("category"));
-             s.setDuration(rs.getString("duration"));
-             s.setPath(rs.getString("path"));
+             Songs s = new Songs(rs.getInt("id"),
+                     rs.getString("title"),
+                     rs.getString("artist"),
+                     rs.getString("category"),
+                     rs.getString("duration"),
+                     rs.getString("path"));
              
              allSongs.add(s); 
             }
@@ -49,4 +49,34 @@ public class ConnectionManager {
           }
         return allSongs;
 }
+    public void addSong(Songs song) {
+        try (Connection con = cc.getConnection()) {
+            String sql
+                    = "INSERT INTO info"
+                    + "(title, artist, category, duration, path) "
+                    + "VALUES(?,?,?,?,?)";
+            PreparedStatement pstmt
+                    = con.prepareStatement(
+                            sql, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, song.getTitle());
+            pstmt.setString(2, song.getArtist());
+            pstmt.setString(3, song.getCategory());
+            pstmt.setString(4, song.getDuration());
+            pstmt.setString(5, song.getPath());
+
+            int affected = pstmt.executeUpdate();
+            if (affected<1)
+                throw new SQLException("Prisoner could not be added");
+
+            // Get database generated id
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                song.setId(rs.getInt(1));
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        }
+    }
 }

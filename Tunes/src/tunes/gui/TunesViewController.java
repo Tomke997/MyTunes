@@ -5,6 +5,7 @@
  */
 package tunes.gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -12,13 +13,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import tunes.be.Songs;
 
 /**
@@ -28,8 +34,6 @@ import tunes.be.Songs;
  */
 public class TunesViewController implements Initializable {
 
-    @FXML
-    private Button button;
     @FXML
     private TableColumn<Songs, String> columnTitle;
     @FXML
@@ -41,7 +45,7 @@ public class TunesViewController implements Initializable {
     @FXML
     private TableView<Songs> songsTable;
     private TunesModel model = new TunesModel();
-   private MediaPlayer mediaplayer;
+    private MediaPlayer mediaplayer;
    
 
     @FXML
@@ -50,6 +54,16 @@ public class TunesViewController implements Initializable {
     private Slider slider;
     @FXML
     private Button previous;
+    @FXML
+    private Button play;
+    @FXML
+    private Button closeButton;
+    @FXML
+    private Button newButton;
+    @FXML
+    private Button editButton;
+    @FXML
+    private Button deleteButton;
     /**
      * Initializes the controller class.
      */
@@ -70,8 +84,7 @@ public class TunesViewController implements Initializable {
     @FXML
     private void play(ActionEvent event) throws SQLException {
         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
-        model.playSelectedSong(selectedSong);
-        
+        model.playSelectedSong(selectedSong);   
     }
 
     @FXML
@@ -86,5 +99,39 @@ public class TunesViewController implements Initializable {
      songsTable.getSelectionModel().selectNext();
      Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
      model.playSelectedSong(selectedSong);
+    }
+
+    @FXML
+    private void close(ActionEvent event) {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+       stage.close();
+    }
+
+    @FXML
+    private void newSongs(ActionEvent event) throws IOException {
+        Parent root;
+        Stage stage = new Stage();       
+   
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesNewSong.fxml"));
+        root = loader.load();
+        TunesNewSongController controller = loader.getController();
+        controller.setParent(this);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("New/Edit Song");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+    }
+
+    @FXML
+    private void editSongs(ActionEvent event) {
+    }
+
+    @FXML
+    private void deleteSongs(ActionEvent event) {
+    }
+    public void addIceCream(Songs song) throws IOException
+    {
+        songsTable.getItems().add(song);
+        model.addSong(song);
     }
 }

@@ -43,4 +43,8 @@ public class TunesModel {
     {
       return manager.getAllSongs();
     }
+    public void addSong(Songs song)
+{
+    manager.addSong(song);
+}
 }

@@ -20,4 +20,8 @@ public class BllManager {
     {
       return cm.getAllSongs();
     }
+public void addSong(Songs song)
+{
+    cm.addSong(song);
+}
 }

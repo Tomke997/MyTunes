@@ -17,6 +17,15 @@ public class Songs {
     private String category;
     private String duration;
     private String path;
+
+    public Songs(int id, String title, String artist, String category, String duration, String path) {
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.category = category;
+        this.duration = duration;
+        this.path = path;
+    }    
     
     public String getPath() {
         return path;
