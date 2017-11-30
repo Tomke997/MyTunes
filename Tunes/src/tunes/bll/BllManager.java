@@ -28,4 +28,8 @@ public class BllManager {
     {
         cm.delete(selectedSong);
     }
+    public List<Songs> getSongsByQuery(String part)
+    {
+       return cm.getSongsByQuery(part);
+    }
 }

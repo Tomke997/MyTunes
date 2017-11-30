@@ -93,4 +93,38 @@ public class ConnectionManager {
             Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public List<Songs> getSongsByQuery(String part)
+        {
+
+        List<Songs> songsByQuery = new ArrayList();
+
+        try (Connection con = cc.getConnection()) 
+        {
+          String query
+                    = "SELECT * FROM info "
+                    + "WHERE title LIKE ? OR artist LIKE ?";
+             
+            PreparedStatement pstmt
+                    = con.prepareStatement(query);
+            pstmt.setString(1, "%" + part+ "%");
+            pstmt.setString(2,  "%" + part + "%");
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Songs s = new Songs(rs.getInt("id"),
+                     rs.getString("title"),
+                     rs.getString("artist"),
+                     rs.getString("category"),
+                     rs.getString("duration"),
+                     rs.getString("path"));
+                
+                songsByQuery.add(s);
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return songsByQuery;
+
+    }
 }

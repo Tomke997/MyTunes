@@ -21,7 +21,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tunes.be.Songs;
@@ -44,6 +46,7 @@ public class TunesViewController implements Initializable {
     @FXML
     private TableView<Songs> songsTable;
     private TunesModel model = new TunesModel();
+    private int change=0;
      
     @FXML
     private Button next;
@@ -61,6 +64,12 @@ public class TunesViewController implements Initializable {
     private Button editButton;
     @FXML
     private Button deleteButton;
+    @FXML
+    private TextField txtSearch;
+    @FXML
+    private Button searchButton;
+    @FXML
+    private ImageView searchImage;
     /**
      * Initializes the controller class.
      */
@@ -83,7 +92,10 @@ public class TunesViewController implements Initializable {
     @FXML
     private void play(ActionEvent event) throws SQLException {
         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
+        
         model.playSelectedSong(selectedSong);   
+        
+      
     }
 
     @FXML
@@ -146,6 +158,28 @@ public class TunesViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void search(ActionEvent event) throws SQLException {
+       switch(change)
+       {
+        case 0:
+        {
+            searchImage.setVisible(false);
+       songsTable.setItems(model.getSongsByQuery(txtSearch.getText()));  
+        change++;   
+        }
+        break;
+        case 1:
+        {
+       searchImage.setVisible(true);
+       model.loadAllSongs();
+       songsTable.setItems(model.getAllSongs());
+       change--;
+        }
+           break;
+       }
     }
    
    

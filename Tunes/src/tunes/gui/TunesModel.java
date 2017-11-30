@@ -11,6 +11,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -44,6 +45,7 @@ public class TunesModel {
         mediaplayer.play();    
         }      
     }
+    
     public void loadAllSongs() throws SQLException
     {
         allSongs.clear();
@@ -70,5 +72,9 @@ public class TunesModel {
         manager.delete(selectedSong);
         allSongs.remove(selectedSong);
     }
-    
+    public ObservableList<Songs> getSongsByQuery(String part)
+    {
+        allSongs.setAll(manager.getSongsByQuery(part));
+        return allSongs;
+    }
 }
