@@ -46,7 +46,7 @@ public class TunesViewController implements Initializable {
     private TableView<Songs> songsTable;
     private TunesModel model = new TunesModel();
     private MediaPlayer mediaplayer;
-   
+      
 
     @FXML
     private Button next;
@@ -107,18 +107,21 @@ public class TunesViewController implements Initializable {
     }
 
     @FXML
-    private void newSongs(ActionEvent event) throws IOException {
-        Parent root;
-        Stage stage = new Stage();       
-   
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesNewSong.fxml"));
-        root = loader.load();
-        TunesNewSongController controller = loader.getController();
-        controller.setParent(this);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("New/Edit Song");
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
+    private void newSongs(ActionEvent event) {  
+        try {
+            Parent root;
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesNewSong.fxml"));
+            root = loader.load();
+            TunesNewSongController controller = loader.getController();
+            controller.setParent(this);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("New/Edit Song");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -127,10 +130,29 @@ public class TunesViewController implements Initializable {
 
     @FXML
     private void deleteSongs(ActionEvent event) {
+        try {
+            Parent root;
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesDeleteSong.fxml"));
+            root = loader.load();
+            TunesDeleteSongController controller = loader.getController();
+            controller.setParent(this);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Are you sure");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    public void addIceCream(Songs song) throws IOException
+    public void addSong(Songs song) throws IOException
     {
         songsTable.getItems().add(song);
-        model.addSong(song);
+        model.addSong(song);  
+    }
+    public void deleteSong()
+    {
+      Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
+      songsTable.getItems().remove(selectedSong);
     }
 }

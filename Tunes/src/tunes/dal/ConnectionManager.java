@@ -66,7 +66,7 @@ public class ConnectionManager {
 
             int affected = pstmt.executeUpdate();
             if (affected<1)
-                throw new SQLException("Prisoner could not be added");
+                throw new SQLException("Song could not be added");
 
             // Get database generated id
             ResultSet rs = pstmt.getGeneratedKeys();
@@ -77,6 +77,20 @@ public class ConnectionManager {
         catch (SQLException ex) {
             Logger.getLogger(ConnectionManager.class.getName()).log(
                     Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void delete(Songs selectedSong) {
+        try (Connection con = cc.getConnection()) {
+            String sql
+                    = "DELETE FROM info WHERE id=?";
+            PreparedStatement pstmt
+                    = con.prepareStatement(sql);
+            pstmt.setInt(1, selectedSong.getId());
+            pstmt.execute();
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

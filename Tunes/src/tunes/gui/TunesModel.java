@@ -54,4 +54,8 @@ public class TunesModel {
         Stage stage = (Stage) button.getScene().getWindow();
        stage.close();
     }
+    public void delete(Songs selectedSong)
+    {
+        manager.delete(selectedSong);
+    }
 }

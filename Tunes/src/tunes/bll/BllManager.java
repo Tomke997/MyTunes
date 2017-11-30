@@ -24,4 +24,8 @@ public class BllManager {
     {
     cm.addSong(song);
     }
+    public void delete(Songs selectedSong)
+    {
+        cm.delete(selectedSong);
+    }
 }

@@ -69,7 +69,7 @@ public class TunesNewSongController implements Initializable {
 
     @FXML
     private void save(ActionEvent event) throws IOException {
-        parent.addIceCream(new Songs(-1, txtTitle.getText(),
+        parent.addSong(new Songs(-1, txtTitle.getText(),
                 txtArtist.getText(),categoryBox.getSelectionModel().getSelectedItem(),
                 txtTime.getText(), txtFile.getText()));
         
