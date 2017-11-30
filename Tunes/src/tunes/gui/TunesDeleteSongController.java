@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import tunes.be.Songs;
 
 /**
  * FXML Controller class
@@ -23,8 +24,8 @@ public class TunesDeleteSongController implements Initializable {
     private Button yesButton;
     @FXML
     private Button noButton;
-    private TunesViewController parent;
-    private TunesModel model = new TunesModel();
+    private TunesModel model;
+    private Songs selectedSong;
 
     /**
      * Initializes the controller class.
@@ -36,7 +37,7 @@ public class TunesDeleteSongController implements Initializable {
 
     @FXML
     private void yes(ActionEvent event) {
-        parent.deleteSong();
+        model.delete(selectedSong);
         model.closeWindow(yesButton);
     }
 
@@ -44,8 +45,11 @@ public class TunesDeleteSongController implements Initializable {
     private void no(ActionEvent event) {
         model.closeWindow(noButton);
     }
-    public void setParent(TunesViewController parent)
-    {
-        this.parent=parent;
+
+
+    void setModelAndSong(TunesModel model, Songs selectedSong) {
+        this.model=model;
+        this.selectedSong=selectedSong;
     }
+    
 }

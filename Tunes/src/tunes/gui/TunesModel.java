@@ -8,6 +8,8 @@ package tunes.gui;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -24,6 +26,7 @@ public class TunesModel {
     private MediaPlayer mediaplayer;
     private String filePath;
     private BllManager manager = new BllManager();
+    private ObservableList<Songs> allSongs = FXCollections.observableArrayList();
     public void playSelectedSong(Songs selectedSong)
     { 
         if(isPlaying == true)
@@ -41,13 +44,21 @@ public class TunesModel {
         mediaplayer.play();    
         }      
     }
-    public List<Songs> getAllSongs() throws SQLException
+    public void loadAllSongs() throws SQLException
     {
-      return manager.getAllSongs();
+        allSongs.clear();
+        allSongs.addAll(manager.getAllSongs());
+    }
+    public ObservableList<Songs> getAllSongs() throws SQLException
+    {
+        return allSongs;
+   
     }
     public void addSong(Songs song)
 {
     manager.addSong(song);
+    allSongs.add(song);
+    
 }
     public void closeWindow(Button button)
     {
@@ -57,5 +68,7 @@ public class TunesModel {
     public void delete(Songs selectedSong)
     {
         manager.delete(selectedSong);
+        allSongs.remove(selectedSong);
     }
+    
 }

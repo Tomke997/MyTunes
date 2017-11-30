@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -53,5 +54,7 @@
       <Button fx:id="editButton" layoutX="512.0" layoutY="522.0" mnemonicParsing="false" onAction="#editSongs" text="Edit" />
       <Button fx:id="deleteButton" layoutX="565.0" layoutY="522.0" mnemonicParsing="false" onAction="#deleteSongs" text="Delete" />
       <ListView layoutX="238.0" layoutY="129.0" prefHeight="392.0" prefWidth="206.0" />
+      <TextField layoutX="616.0" layoutY="32.0" />
+      <Button layoutX="802.0" layoutY="32.0" mnemonicParsing="false" text="Button" />
     </children>
 </AnchorPane>

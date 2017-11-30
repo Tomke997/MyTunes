@@ -22,7 +22,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tunes.be.Songs;
@@ -45,9 +44,7 @@ public class TunesViewController implements Initializable {
     @FXML
     private TableView<Songs> songsTable;
     private TunesModel model = new TunesModel();
-    private MediaPlayer mediaplayer;
-      
-
+     
     @FXML
     private Button next;
     @FXML
@@ -73,9 +70,11 @@ public class TunesViewController implements Initializable {
        columnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
        columnCategory.setCellValueFactory(new PropertyValueFactory("category"));
        columnTime.setCellValueFactory(new PropertyValueFactory("duration")); 
-      
+ 
+       
         try {
-            songsTable.getItems().addAll(model.getAllSongs());
+            model.loadAllSongs();
+            songsTable.setItems(model.getAllSongs());
         } catch (SQLException ex) {
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -114,7 +113,7 @@ public class TunesViewController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesNewSong.fxml"));
             root = loader.load();
             TunesNewSongController controller = loader.getController();
-            controller.setParent(this);
+            controller.setModel(model);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("New/Edit Song");
             stage.setScene(new Scene(root));
@@ -136,7 +135,10 @@ public class TunesViewController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesDeleteSong.fxml"));
             root = loader.load();
             TunesDeleteSongController controller = loader.getController();
-            controller.setParent(this);
+            Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
+      
+            controller.setModelAndSong(model, selectedSong);
+            
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Are you sure");
             stage.setScene(new Scene(root));
@@ -145,14 +147,6 @@ public class TunesViewController implements Initializable {
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void addSong(Songs song) throws IOException
-    {
-        songsTable.getItems().add(song);
-        model.addSong(song);  
-    }
-    public void deleteSong()
-    {
-      Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
-      songsTable.getItems().remove(selectedSong);
-    }
+   
+   
 }

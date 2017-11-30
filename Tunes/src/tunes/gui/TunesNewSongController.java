@@ -27,7 +27,6 @@ public class TunesNewSongController implements Initializable {
 
     @FXML
     private Button cancelButton;
-    private TunesViewController parent;
     @FXML
     private TextField txtTitle;
     @FXML
@@ -38,7 +37,7 @@ public class TunesNewSongController implements Initializable {
     private TextField txtFile;
     @FXML
     private Button saveButton;
-    private TunesModel model = new TunesModel();
+    private TunesModel model;
     @FXML
     private ComboBox<String> categoryBox;
     @FXML
@@ -62,14 +61,13 @@ public class TunesNewSongController implements Initializable {
     private void cancel(ActionEvent event) {
         model.closeWindow(cancelButton);
     }
-    public void setParent(TunesViewController parent)
-    {
-        this.parent=parent;
+    public void setModel(TunesModel model) {
+        this.model=model;
     }
 
     @FXML
     private void save(ActionEvent event) throws IOException {
-        parent.addSong(new Songs(-1, txtTitle.getText(),
+        model.addSong(new Songs(-1, txtTitle.getText(),
                 txtArtist.getText(),categoryBox.getSelectionModel().getSelectedItem(),
                 txtTime.getText(), txtFile.getText()));
         
