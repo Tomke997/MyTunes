@@ -22,7 +22,6 @@ import tunes.be.Songs;
  * @author Pepe15224
  */
 public class ConnectionManager {
-    
     private ConnectionController cc = new ConnectionController();
     
     public List<Songs> getAllSongs() throws SQLServerException, SQLException
@@ -50,7 +49,6 @@ public class ConnectionManager {
           }
         return allSongs;
 }
-    
     public void addSong(Songs song) {
         try (Connection con = cc.getConnection()) {
             String sql
@@ -75,21 +73,6 @@ public class ConnectionManager {
             if (rs.next()) {
                 song.setId(rs.getInt(1));
             }
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(ConnectionManager.class.getName()).log(
-                    Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void remove(Songs selectedSong) {
-        try (Connection con = cc.getConnection()) {
-            String sql
-                    = "DELETE FROM info WHERE id=?";
-            PreparedStatement pstmt
-                    = con.prepareStatement(sql);
-            pstmt.setInt(1, selectedSong.getId());
-            pstmt.execute();
         }
         catch (SQLException ex) {
             Logger.getLogger(ConnectionManager.class.getName()).log(

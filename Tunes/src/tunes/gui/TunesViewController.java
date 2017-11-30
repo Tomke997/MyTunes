@@ -74,7 +74,7 @@ public class TunesViewController implements Initializable {
     }    
 
     @FXML
-    private void play(ActionEvent event) {
+    private void play(ActionEvent event) throws SQLException {
         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
         model.playSelectedSong(selectedSong);   
     }
@@ -99,12 +99,8 @@ public class TunesViewController implements Initializable {
     }
 
     @FXML
-    private void newSongs(ActionEvent event) {           
-        try {
-            model.popUpWindow("TunesNewSong.fxml", "New/Edit Song", this);
-        } catch (IOException ex) {
-            Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void newSongs(ActionEvent event) throws IOException {           
+   model.popUpWindow("TunesNewSong.fxml", "New/Edit Song", this);
     }
 
     @FXML
@@ -113,10 +109,9 @@ public class TunesViewController implements Initializable {
 
     @FXML
     private void deleteSongs(ActionEvent event) {
-      
     }
     
-    public void addIceCream(Songs song)
+    public void addIceCream(Songs song) throws IOException
     {
         songsTable.getItems().add(song);
         model.addSong(song);
