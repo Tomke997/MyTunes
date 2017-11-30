@@ -13,12 +13,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import tunes.be.Songs;
 
 /**
@@ -39,7 +45,9 @@ public class TunesViewController implements Initializable {
     @FXML
     private TableView<Songs> songsTable;
     private TunesModel model = new TunesModel();
-    
+    private MediaPlayer mediaplayer;
+   
+
     @FXML
     private Button next;
     @FXML
@@ -99,8 +107,18 @@ public class TunesViewController implements Initializable {
     }
 
     @FXML
-    private void newSongs(ActionEvent event) throws IOException {           
-   model.popUpWindow("TunesNewSong.fxml", "New/Edit Song", this);
+    private void newSongs(ActionEvent event) throws IOException {
+        Parent root;
+        Stage stage = new Stage();       
+   
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesNewSong.fxml"));
+        root = loader.load();
+        TunesNewSongController controller = loader.getController();
+        controller.setParent(this);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("New/Edit Song");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 
     @FXML
@@ -110,7 +128,6 @@ public class TunesViewController implements Initializable {
     @FXML
     private void deleteSongs(ActionEvent event) {
     }
-    
     public void addIceCream(Songs song) throws IOException
     {
         songsTable.getItems().add(song);
