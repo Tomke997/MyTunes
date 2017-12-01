@@ -70,6 +70,14 @@ public class TunesViewController implements Initializable {
     private Button searchButton;
     @FXML
     private ImageView searchImage;
+    private ImageView SearchNotHot;
+    @FXML
+    private ImageView searchNotHot;
+    private int isPlaying=0;
+    @FXML
+    private ImageView imagePlay;
+    @FXML
+    private ImageView imageStop;
     /**
      * Initializes the controller class.
      */
@@ -92,24 +100,30 @@ public class TunesViewController implements Initializable {
     @FXML
     private void play(ActionEvent event) throws SQLException {
         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
-        
-        model.playSelectedSong(selectedSong);   
-        
-      
+         model.playSelectedSong(selectedSong); 
+         switch(isPlaying)
+         {
+             case 0:
+                 imagePlay.setVisible(false);
+                 imageStop.setVisible(true);
+                 isPlaying=1;
+                 break;
+             case 1:
+                 imagePlay.setVisible(true);
+                 imageStop.setVisible(false);
+                 isPlaying=0;
+                 break;
+         }
     }
 
     @FXML
     private void previous(ActionEvent event) {
-        songsTable.getSelectionModel().selectPrevious();
-        Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
-        model.playSelectedSong(selectedSong);
+        songsTable.getSelectionModel().selectPrevious();    
     }
 
     @FXML
     private void next(ActionEvent event) {
      songsTable.getSelectionModel().selectNext();
-     Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
-     model.playSelectedSong(selectedSong);
     }
 
     @FXML
@@ -166,13 +180,15 @@ public class TunesViewController implements Initializable {
        {
         case 0:
         {
-            searchImage.setVisible(false);
+         searchNotHot.setVisible(true);
+         searchImage.setVisible(false);
        songsTable.setItems(model.getSongsByQuery(txtSearch.getText()));  
         change++;   
         }
         break;
         case 1:
         {
+       searchNotHot.setVisible(false);
        searchImage.setVisible(true);
        model.loadAllSongs();
        songsTable.setItems(model.getAllSongs());

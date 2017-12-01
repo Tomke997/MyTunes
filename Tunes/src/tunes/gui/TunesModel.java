@@ -7,11 +7,9 @@ package tunes.gui;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -23,13 +21,28 @@ import tunes.bll.BllManager;
  * @author Pepe15224
  */
 public class TunesModel {
-    private boolean isPlaying=false;
+    private int isPlaying=0;
     private MediaPlayer mediaplayer;
     private String filePath;
     private BllManager manager = new BllManager();
     private ObservableList<Songs> allSongs = FXCollections.observableArrayList();
     public void playSelectedSong(Songs selectedSong)
     { 
+        switch(isPlaying)
+        {
+            case 1:
+        mediaplayer.stop();
+        isPlaying=0;
+        break;
+            case 0:
+               File file = new File(selectedSong.getPath());
+        filePath = file.toURI().toString();
+        Media media = new Media(filePath);
+        mediaplayer = new MediaPlayer(media);
+        isPlaying=1;
+        mediaplayer.play(); 
+        }
+        /*
         if(isPlaying == true)
         {
         mediaplayer.stop();
@@ -44,6 +57,7 @@ public class TunesModel {
         isPlaying=true;
         mediaplayer.play();    
         }      
+*/
     }
     
     public void loadAllSongs() throws SQLException

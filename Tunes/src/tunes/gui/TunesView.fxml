@@ -18,7 +18,7 @@
       <Button fx:id="previous" layoutX="59.0" layoutY="41.0" mnemonicParsing="false" onAction="#previous" prefHeight="34.0" prefWidth="33.0" style="-fx-background-radius: 100;" />
       <Button fx:id="next" layoutX="160.0" layoutY="41.0" mnemonicParsing="false" onAction="#next" prefHeight="34.0" prefWidth="33.0" style="-fx-background-radius: 100;" />
       <Slider fx:id="slider" layoutX="86.0" layoutY="95.0" prefHeight="14.0" prefWidth="113.0" />
-      <ImageView disable="true" fitHeight="28.0" fitWidth="33.0" layoutX="116.0" layoutY="44.0" nodeOrientation="INHERIT" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagePlay" disable="true" fitHeight="28.0" fitWidth="33.0" layoutX="116.0" layoutY="44.0" nodeOrientation="INHERIT" opacity="0.75" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/Start.png" />
          </image>
@@ -59,6 +59,16 @@
       <ImageView fx:id="searchImage" disable="true" fitHeight="25.0" fitWidth="22.0" layoutX="810.0" layoutY="34.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/search.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="searchNotHot" disable="true" fitHeight="25.0" fitWidth="33.0" layoutX="807.0" layoutY="32.0" opacity="0.75" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../images/search%20not%20hot.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imageStop" disable="true" fitHeight="34.0" fitWidth="27.0" layoutX="113.0" layoutY="45.0" opacity="0.75" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../images/Stop.PNG" />
          </image>
       </ImageView>
     </children>
