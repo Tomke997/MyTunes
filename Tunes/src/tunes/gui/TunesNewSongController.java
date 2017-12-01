@@ -8,6 +8,7 @@ package tunes.gui;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,31 +46,40 @@ public class TunesNewSongController implements Initializable {
     private String filePath;
     @FXML
     private Button moreButton;
-    
+    private Songs selectedSong;
 
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        categoryBox.getItems().setAll("Rock","Pop","Hip-Hop");
-             
-        categoryBox.getSelectionModel().selectFirst();
-    }    
+      
 
     @FXML
     private void cancel(ActionEvent event) {
         model.closeWindow(cancelButton);
     }
-    public void setModel(TunesModel model) {
+    void setModelAndSong(TunesModel model, Songs selectedSong) {
         this.model=model;
+        this.selectedSong=selectedSong;
     }
 
     @FXML
-    private void save(ActionEvent event) throws IOException {
+    private void save(ActionEvent event) throws IOException, SQLException {
+        if(selectedSong !=null)
+        {
+           selectedSong.setTitle(txtTitle.getText());
+           selectedSong.setArtist(txtArtist.getText());
+           selectedSong.setCategory(categoryBox.getSelectionModel().getSelectedItem());
+           selectedSong.setDuration(txtTime.getText());
+           selectedSong.setPath(txtFile.getText());
+           
+           model.edit(selectedSong);
+        }
+        if(selectedSong==null)
+        {
         model.addSong(new Songs(-1, txtTitle.getText(),
                 txtArtist.getText(),categoryBox.getSelectionModel().getSelectedItem(),
                 txtTime.getText(), txtFile.getText()));
+        }
         
         model.closeWindow(saveButton);
     }
@@ -85,10 +95,25 @@ public class TunesNewSongController implements Initializable {
         
         txtFile.setText(filePath);
     }
-
     @FXML
     private void more(ActionEvent event) 
     {
+        fillArea();
         categoryBox.getItems().setAll("Rock","Pop","Hip-Hop","Electronic","Jazz","Reggae","Blues","Country","Folk");
     }
+    public void fillArea()
+    {
+        if(selectedSong!=null)
+        {
+        txtTitle.setText(selectedSong.getTitle());
+        txtArtist.setText(selectedSong.getArtist());
+        txtTime.setText(selectedSong.getDuration());
+        txtFile.setText(selectedSong.getPath());
+        }
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        categoryBox.getItems().setAll("Rock","Pop","Hip-Hop");
+        categoryBox.getSelectionModel().selectFirst();      
+    }  
 }

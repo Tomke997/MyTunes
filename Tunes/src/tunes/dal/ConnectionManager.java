@@ -125,6 +125,30 @@ public class ConnectionManager {
             Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return songsByQuery;
+    }
+    public void edit(Songs song) {
+        try (Connection con = cc.getConnection()) {
+            String sql
+                    = "UPDATE info SET "
+                    + "title=?, artist=?, category=?, duration=?, path=? "
+                    + "WHERE id=?";
+            PreparedStatement pstmt
+                    = con.prepareStatement(sql);
+            pstmt.setString(1, song.getTitle());
+            pstmt.setString(2, song.getArtist());
+            pstmt.setString(3, song.getCategory());
+            pstmt.setString(4, song.getDuration());
+            pstmt.setString(5, song.getPath());
+            pstmt.setInt(6, song.getId());
 
+            int affected = pstmt.executeUpdate();
+            if (affected<1)
+                throw new SQLException("Song could not be edited");
+
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        }
     }
 }

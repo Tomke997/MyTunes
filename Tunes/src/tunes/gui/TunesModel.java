@@ -91,4 +91,9 @@ public class TunesModel {
         allSongs.setAll(manager.getSongsByQuery(part));
         return allSongs;
     }
+    public void edit(Songs song) throws SQLException
+    {
+        manager.edit(song);
+        loadAllSongs();
+    }
 }

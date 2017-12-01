@@ -32,4 +32,8 @@ public class BllManager {
     {
        return cm.getSongsByQuery(part);
     }
+    public void edit(Songs song)
+    {
+        cm.edit(song);
+    }
 }

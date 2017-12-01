@@ -139,7 +139,7 @@ public class TunesViewController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesNewSong.fxml"));
             root = loader.load();
             TunesNewSongController controller = loader.getController();
-            controller.setModel(model);
+            controller.setModelAndSong(model, null);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("New/Edit Song");
             stage.setScene(new Scene(root));
@@ -151,6 +151,22 @@ public class TunesViewController implements Initializable {
 
     @FXML
     private void editSongs(ActionEvent event) {
+        try {
+            Parent root;
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesNewSong.fxml"));
+            root = loader.load();
+            TunesNewSongController controller = loader.getController();
+            Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
+            controller.setModelAndSong(model, selectedSong);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("New/Edit Song");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
     }
 
     @FXML
