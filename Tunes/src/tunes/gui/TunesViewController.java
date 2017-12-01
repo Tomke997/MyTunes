@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -80,9 +82,12 @@ public class TunesViewController implements Initializable {
     private ImageView imageStop;
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
        columnTitle.setCellValueFactory(new PropertyValueFactory("title"));
        columnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
        columnCategory.setCellValueFactory(new PropertyValueFactory("category"));
@@ -95,6 +100,7 @@ public class TunesViewController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
+         volume();
     }    
 
     @FXML
@@ -212,7 +218,17 @@ public class TunesViewController implements Initializable {
         }
            break;
        }
+       
     }
-   
+private final void volume()
+{
+    slider.setValue(model.getMediaPlayer().getVolume()*100);
+    slider.valueProperty().addListener(new InvalidationListener() {
+        @Override
+        public void invalidated(Observable observable) {
+            model.getMediaPlayer().setVolume(slider.getValue()/100);
+        }
+    });
+}
    
 }

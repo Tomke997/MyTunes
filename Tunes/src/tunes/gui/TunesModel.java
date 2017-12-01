@@ -96,4 +96,8 @@ public class TunesModel {
         manager.edit(song);
         loadAllSongs();
     }
+    public MediaPlayer getMediaPlayer()
+    {
+        return mediaplayer;
+    }
 }
