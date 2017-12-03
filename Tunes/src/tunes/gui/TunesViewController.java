@@ -92,8 +92,7 @@ public class TunesViewController implements Initializable {
        columnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
        columnCategory.setCellValueFactory(new PropertyValueFactory("category"));
        columnTime.setCellValueFactory(new PropertyValueFactory("duration")); 
- 
-       
+
         try {
             model.loadAllSongs();
             songsTable.setItems(model.getAllSongs());
@@ -222,7 +221,7 @@ public class TunesViewController implements Initializable {
     }
 private final void volume()
 {
-    slider.setValue(model.getMediaPlayer().getVolume()*100);
+    slider.setValue(100);
     slider.valueProperty().addListener(new InvalidationListener() {
         @Override
         public void invalidated(Observable observable) {
