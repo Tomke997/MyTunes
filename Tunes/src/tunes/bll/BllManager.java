@@ -7,6 +7,7 @@ package tunes.bll;
 
 import java.sql.SQLException;
 import java.util.List;
+import tunes.be.Playlists;
 import tunes.be.Songs;
 import tunes.dal.ConnectionManager;
 
@@ -35,5 +36,9 @@ public class BllManager {
     public void edit(Songs song)
     {
         cm.edit(song);
+    }
+    public List<Playlists> getPlaylists() throws SQLException
+    {
+        return cm.getPlaylists();
     }
 }
