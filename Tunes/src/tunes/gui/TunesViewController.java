@@ -289,6 +289,21 @@ private final void volume()
 
     @FXML
     private void deletePlaylist(ActionEvent event) {
+       try {
+            Parent root;
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesDeletePlayList.fxml"));
+            root = loader.load();
+            TunesDeletePlayListController controller = loader.getController();
+            Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
+            controller.setModelAndPlaylist(model, selectedPlaylist);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Are you sure");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     }
 

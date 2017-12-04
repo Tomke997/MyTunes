@@ -222,4 +222,18 @@ public class ConnectionManager {
         
         }
     }
+    public void deletePlaylist(Playlists playlist)
+    {
+        try (Connection con = cc.getConnection()) {
+            String sql
+                    = "DELETE FROM PlayList WHERE id=?";
+            PreparedStatement pstmt
+                    = con.prepareStatement(sql);
+            pstmt.setInt(1, playlist.getId());
+            pstmt.execute();
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

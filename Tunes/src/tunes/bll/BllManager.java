@@ -49,4 +49,8 @@ public class BllManager {
     {
         cm.editPlaylist(playlist);
     }
+    public void deletePlaylist(Playlists playlist)
+    {
+        cm.deletePlaylist(playlist);
+    }
 }

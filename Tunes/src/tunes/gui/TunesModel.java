@@ -86,6 +86,11 @@ public class TunesModel {
         manager.delete(selectedSong);
         allSongs.remove(selectedSong);
     }
+    public void deletePlaylist(Playlists playlist)
+    {
+        manager.deletePlaylist(playlist);
+        allPlaylists.remove(playlist);
+    }
     public ObservableList<Songs> getSongsByQuery(String part)
     {
         allSongs.setAll(manager.getSongsByQuery(part));
