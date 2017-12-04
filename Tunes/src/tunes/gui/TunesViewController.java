@@ -28,6 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tunes.be.Playlists;
 import tunes.be.Songs;
 
 /**
@@ -80,6 +81,20 @@ public class TunesViewController implements Initializable {
     private ImageView imagePlay;
     @FXML
     private ImageView imageStop;
+    @FXML
+    private Button newPlaylist;
+    @FXML
+    private Button editPlaylist;
+    @FXML
+    private Button deletePlaylist;
+    @FXML
+    private TableView<Playlists> playlistList;
+    @FXML
+    private TableColumn<Playlists, String> columnName;
+    @FXML
+    private TableColumn<Playlists, Integer> columnSongs;
+    @FXML
+    private TableColumn<Playlists, String> columnDuration;
     /**
      * Initializes the controller class.
      * @param url
@@ -92,9 +107,14 @@ public class TunesViewController implements Initializable {
        columnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
        columnCategory.setCellValueFactory(new PropertyValueFactory("category"));
        columnTime.setCellValueFactory(new PropertyValueFactory("duration")); 
+       columnName.setCellValueFactory(new PropertyValueFactory("name"));
+       columnSongs.setCellValueFactory(new PropertyValueFactory("songs"));
+       columnDuration.setCellValueFactory(new PropertyValueFactory("time"));
 
         try {
+            model.loadPlaylists();
             model.loadAllSongs();
+            playlistList.setItems(model.getPlaylists());
             songsTable.setItems(model.getAllSongs());
         } catch (SQLException ex) {
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -229,5 +249,17 @@ private final void volume()
         }
     });
 }
+
+    @FXML
+    private void newPlaylist(ActionEvent event) {
+    }
+
+    @FXML
+    private void editPlaylist(ActionEvent event) {
+    }
+
+    @FXML
+    private void deletePlaylist(ActionEvent event) {
+    }
    
 }

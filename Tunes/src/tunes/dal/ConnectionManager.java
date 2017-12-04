@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tunes.be.Playlists;
 import tunes.be.Songs;
 
 /**
@@ -151,4 +152,24 @@ public class ConnectionManager {
                     Level.SEVERE, null, ex);
         }
     }
+    public List<Playlists> getPlaylists() throws SQLServerException, SQLException
+    {
+        List<Playlists> allPlaylists = new ArrayList();
+        try (Connection con = cc.getConnection())
+        {
+         PreparedStatement pstmt = con.prepareCall("SELECT * FROM PlayList");
+         ResultSet rs = pstmt.executeQuery();
+            while(rs.next())
+            {
+             Playlists p = new Playlists(rs.getInt("id"), rs.getString("name"),rs.getString("time"),rs.getInt("songs"));
+             
+             allPlaylists.add(p); 
+            }
+         }
+         catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(
+                    Level.SEVERE, null, ex);
+          }
+        return allPlaylists;
+}
 }
