@@ -252,14 +252,45 @@ private final void volume()
 
     @FXML
     private void newPlaylist(ActionEvent event) {
-    }
+        try {
+            Parent root;
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesNewPlayList.fxml"));
+            root = loader.load();
+            TunesNewPlayListController controller = loader.getController();
+            controller.setModelAndPlaylist(model, null);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("New/Edit Playlist");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
 
     @FXML
     private void editPlaylist(ActionEvent event) {
+        try {
+            Parent root;
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TunesNewPlayList.fxml"));
+            root = loader.load();
+            TunesNewPlayListController controller = loader.getController();
+            Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
+            controller.setModelAndPlaylist(model, selectedPlaylist);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("New/Edit Playlist");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void deletePlaylist(ActionEvent event) {
     }
-   
-}
+    }
+
+
+

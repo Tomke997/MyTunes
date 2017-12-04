@@ -7,7 +7,6 @@ package tunes.gui;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -71,6 +70,12 @@ public class TunesModel {
     allSongs.add(song);
     
 }
+    public void addPlaylist(Playlists playlist)
+{
+    manager.addPlaylist(playlist);
+    allPlaylists.add(playlist);
+    
+}
     public void closeWindow(Button button)
     {
         Stage stage = (Stage) button.getScene().getWindow();
@@ -90,6 +95,11 @@ public class TunesModel {
     {
         manager.edit(song);
         loadAllSongs();
+    }
+    public void editPlaylist(Playlists playlist) throws SQLException
+    {
+        manager.editPlaylist(playlist);
+        loadPlaylists();
     }
     public MediaPlayer getMediaPlayer()
     {

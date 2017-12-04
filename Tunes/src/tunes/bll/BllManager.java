@@ -41,4 +41,12 @@ public class BllManager {
     {
         return cm.getPlaylists();
     }
+    public void addPlaylist(Playlists playlist)
+    {
+        cm.addPlaylist(playlist);
+    }
+    public void editPlaylist(Playlists playlist)
+    {
+        cm.editPlaylist(playlist);
+    }
 }

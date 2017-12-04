@@ -172,4 +172,54 @@ public class ConnectionManager {
           }
         return allPlaylists;
 }
+    public void addPlaylist(Playlists playlist) {
+        try (Connection con = cc.getConnection()) {
+            String sql
+                    = "INSERT INTO PlayList "
+                    + "(name, songs, time) "
+                    + "VALUES(?,?,?)";
+            PreparedStatement pstmt
+                    = con.prepareStatement(
+                            sql, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, playlist.getName());
+            pstmt.setInt(2, playlist.getSongs());
+            pstmt.setString(3, playlist.getTime());
+            
+
+            int affected = pstmt.executeUpdate();
+            if (affected<1)
+                throw new SQLException("Playlist could not be added");
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                playlist.setId(rs.getInt(1));
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        }
+    }
+    public void editPlaylist(Playlists playlist) {
+        try (Connection con = cc.getConnection()) {
+            String sql
+                    = "UPDATE PlayList SET "
+                    + "name=? "
+                    + "WHERE id=?";
+            PreparedStatement pstmt
+                    = con.prepareStatement(sql);
+            pstmt.setString(1, playlist.getName());
+            pstmt.setInt(2, playlist.getId());
+
+            int affected = pstmt.executeUpdate();
+            if (affected<1)
+                throw new SQLException("Song could not be edited");
+
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        
+        }
+    }
 }
