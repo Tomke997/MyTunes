@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import tunes.be.Playlists;
 import tunes.be.Songs;
+import tunes.be.SongsInPlaylist;
 
 /**
  *
@@ -204,16 +205,18 @@ public class ConnectionManager {
         try (Connection con = cc.getConnection()) {
             String sql
                     = "UPDATE PlayList SET "
-                    + "name=? "
+                    + "name=?, songs=?, time=? "
                     + "WHERE id=?";
             PreparedStatement pstmt
                     = con.prepareStatement(sql);
             pstmt.setString(1, playlist.getName());
-            pstmt.setInt(2, playlist.getId());
+            pstmt.setInt(2, playlist.getSongs());
+            pstmt.setString(3, playlist.getTime());
+            pstmt.setInt(4, playlist.getId());
 
             int affected = pstmt.executeUpdate();
             if (affected<1)
-                throw new SQLException("Song could not be edited");
+                throw new SQLException("Playlist could not be edited");
 
         }
         catch (SQLException ex) {
@@ -226,10 +229,79 @@ public class ConnectionManager {
     {
         try (Connection con = cc.getConnection()) {
             String sql
-                    = "DELETE FROM PlayList WHERE id=?";
+                    = "DELETE FROM PlayList WHERE id=? "+
+                    "DELETE FROM SongsInPlaylists WHERE PlayList=?";
             PreparedStatement pstmt
                     = con.prepareStatement(sql);
             pstmt.setInt(1, playlist.getId());
+            pstmt.setInt(2, playlist.getId());
+            pstmt.execute();
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void addSongsToPlaylist(Songs song,Playlists playlist, int listOrder)
+    {
+        try (Connection con = cc.getConnection()) {
+            String sql
+                    = "INSERT INTO SongsInPlaylists "
+                    + "(info, PlayList, sortOrder) "
+                    + "VALUES(?,?,?)";
+            PreparedStatement pstmt
+                    = con.prepareStatement(
+                            sql, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setInt(1, song.getId());
+            pstmt.setInt(2, playlist.getId());
+            pstmt.setInt(3, listOrder);
+            int affected = pstmt.executeUpdate();
+            if (affected<1)
+                throw new SQLException("Song could not be added to Playlist");
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                playlist.setId(rs.getInt(1));
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        }
+    }
+    public List<SongsInPlaylist> getSongsById(int id)
+    {
+        List<SongsInPlaylist> songsById = new ArrayList();
+
+        try (Connection con = cc.getConnection()) 
+        {
+          String query
+                    = "SELECT * FROM SongsInPlaylists "
+                    + "WHERE PlayList LIKE ?";
+             
+            PreparedStatement pstmt
+                    = con.prepareStatement(query);
+            pstmt.setInt(1,id);
+           ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                SongsInPlaylist s = new SongsInPlaylist(rs.getInt("info"),rs.getInt("PlayList"),rs.getInt("sortOrder"));
+                
+                songsById.add(s);
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return songsById;
+    }
+    public void deleteSongsInPlaylist(SongsInPlaylist songInPlaylist)
+    {
+       try (Connection con = cc.getConnection()) {
+            String sql
+                    = "DELETE FROM SongsInPlaylists WHERE info=? AND PlayList =?";
+            PreparedStatement pstmt
+                    = con.prepareStatement(sql);
+            pstmt.setInt(1, songInPlaylist.getInfo());
+            pstmt.setInt(2, songInPlaylist.getPlayList());
             pstmt.execute();
         }
         catch (SQLException ex) {

@@ -52,7 +52,7 @@
       <Button fx:id="newButton" layoutX="512.0" layoutY="535.0" mnemonicParsing="false" onAction="#newSongs" text="New" />
       <Button fx:id="editButton" layoutX="641.0" layoutY="536.0" mnemonicParsing="false" onAction="#editSongs" text="Edit" />
       <Button fx:id="deleteButton" layoutX="571.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteSongs" text="Delete" />
-      <ListView layoutX="238.0" layoutY="129.0" prefHeight="392.0" prefWidth="208.0" />
+      <ListView fx:id="songsInPlaylist" layoutX="238.0" layoutY="129.0" prefHeight="392.0" prefWidth="208.0" />
       <TextField fx:id="txtSearch" layoutX="751.0" layoutY="33.0" prefHeight="25.0" prefWidth="100.0" />
       <Button fx:id="searchButton" layoutX="868.0" layoutY="33.0" mnemonicParsing="false" onAction="#search" prefHeight="25.0" prefWidth="37.0" />
       <ImageView fx:id="searchImage" disable="true" fitHeight="25.0" fitWidth="22.0" layoutX="876.0" layoutY="35.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
@@ -70,8 +70,8 @@
             <Image url="@../../images/Stop.PNG" />
          </image>
       </ImageView>
-      <Button layoutX="456.0" layoutY="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" />
-      <TableView fx:id="playlistList" layoutX="18.0" layoutY="129.0" prefHeight="392.0" prefWidth="208.0">
+      <Button fx:id="addToPlaylist" layoutX="456.0" layoutY="150.0" mnemonicParsing="false" onAction="#addToPlaylist" prefHeight="25.0" prefWidth="45.0" />
+      <TableView fx:id="playlistList" layoutX="18.0" layoutY="129.0" onMouseClicked="#clickedPlaylist" prefHeight="392.0" prefWidth="208.0">
         <columns>
           <TableColumn fx:id="columnName" text="Name" />
           <TableColumn fx:id="columnSongs" prefWidth="59.0" text="Songs" />
@@ -86,5 +86,7 @@
             <Image url="@../../images/arrowL.png" />
          </image>
       </ImageView>
+      <Button fx:id="downButton" layoutX="257.0" layoutY="523.0" mnemonicParsing="false" onAction="#down" text="Button" />
+      <Button fx:id="deleteSongsInPlaylist" layoutX="395.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteSongsInPlaylist" text="Delete" />
     </children>
 </AnchorPane>

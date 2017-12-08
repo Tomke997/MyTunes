@@ -6,6 +6,7 @@
 package tunes.gui;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,7 +37,7 @@ public class TunesDeletePlayListController implements Initializable {
     }    
 
     @FXML
-    private void Yes(ActionEvent event) {
+    private void Yes(ActionEvent event) throws SQLException {
         model.deletePlaylist(selectedPlaylist);
         model.closeWindow(btYes);
     }

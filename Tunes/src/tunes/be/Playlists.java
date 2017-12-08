@@ -5,6 +5,11 @@
  */
 package tunes.be;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author Pepe15224
@@ -13,6 +18,24 @@ public class Playlists {
     
     private int id;
     private String name;
+    private final ListProperty<SongsInPlaylist> songsInPlaylist = new SimpleListProperty<>();
+
+    public Playlists() {
+        songsInPlaylist.set(FXCollections.observableArrayList());
+    }
+
+    public ObservableList getSongsInPlaylist() {
+        return songsInPlaylist.get();
+    }
+
+    public void setSongsInPlaylist(ObservableList value) {
+        songsInPlaylist.set(value);
+    }
+
+    public ListProperty songsInPlaylistProperty() {
+        return songsInPlaylist;
+    }
+    
 
     public int getId() {
         return id;

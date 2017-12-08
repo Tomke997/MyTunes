@@ -13,6 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,16 +23,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tunes.be.Playlists;
 import tunes.be.Songs;
+import tunes.be.SongsInPlaylist;
 
 /**
  * FXML Controller class
@@ -95,6 +102,14 @@ public class TunesViewController implements Initializable {
     private TableColumn<Playlists, Integer> columnSongs;
     @FXML
     private TableColumn<Playlists, String> columnDuration;
+    @FXML
+    private Button addToPlaylist;
+    @FXML
+    private ListView<SongsInPlaylist> songsInPlaylist;
+    @FXML
+    private Button downButton;
+    @FXML
+    private Button deleteSongsInPlaylist;
     /**
      * Initializes the controller class.
      * @param url
@@ -109,8 +124,7 @@ public class TunesViewController implements Initializable {
        columnTime.setCellValueFactory(new PropertyValueFactory("duration")); 
        columnName.setCellValueFactory(new PropertyValueFactory("name"));
        columnSongs.setCellValueFactory(new PropertyValueFactory("songs"));
-       columnDuration.setCellValueFactory(new PropertyValueFactory("time"));
-
+       columnDuration.setCellValueFactory(new PropertyValueFactory("time"));      
         try {
             model.loadPlaylists();
             model.loadAllSongs();
@@ -126,19 +140,6 @@ public class TunesViewController implements Initializable {
     private void play(ActionEvent event) throws SQLException {
         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
          model.playSelectedSong(selectedSong); 
-         switch(isPlaying)
-         {
-             case 0:
-                 imagePlay.setVisible(false);
-                 imageStop.setVisible(true);
-                 isPlaying=1;
-                 break;
-             case 1:
-                 imagePlay.setVisible(true);
-                 imageStop.setVisible(false);
-                 isPlaying=0;
-                 break;
-         }
     }
 
     @FXML
@@ -148,7 +149,9 @@ public class TunesViewController implements Initializable {
 
     @FXML
     private void next(ActionEvent event) {
-     songsTable.getSelectionModel().selectNext();
+ songsTable.getSelectionModel().selectNext();
+     
+     
     }
 
     @FXML
@@ -304,6 +307,41 @@ private final void volume()
         } catch (IOException ex) {
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void addToPlaylist(ActionEvent event) throws SQLException {
+        Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
+        Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
+        selectedPlaylist.setSongs(songsInPlaylist.getItems().size()+1);
+        model.editPlaylist(selectedPlaylist);
+        model.addSongsToPlaylist(selectedSong, selectedPlaylist,songsInPlaylist.getItems().size());
+        //songsInPlaylist.setItems(model.test());
+    }
+
+    @FXML
+    private void clickedPlaylist(MouseEvent event) {
+        Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
+        model.getSongsById(selectedPlaylist.getId());
+        songsInPlaylist.setItems(model.test());
+        
+    }
+
+    @FXML
+    private void down(ActionEvent event) {
+        System.out.println(""+songsInPlaylist.getItems().size());
+        
+    }
+
+    @FXML
+    private void deleteSongsInPlaylist(ActionEvent event) throws SQLException {
+       SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
+        Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
+        model.deleteSongsInPlaylist(selectedSongInPlaylist); 
+        selectedPlaylist.setSongs(songsInPlaylist.getItems().size()-1);
+        model.editPlaylist(selectedPlaylist);
+        songsInPlaylist.setItems(model.test());
+        
     }
     }
 

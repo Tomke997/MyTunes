@@ -82,8 +82,9 @@ public class Songs {
 
     @Override
     public String toString() {
-        return "Songs{" + "title=" + title + ", artist=" + artist + ", category=" + category + ", duration=" + duration + '}';
+        return getTitle();
     }
+
 
     
 }

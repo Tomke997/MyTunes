@@ -15,6 +15,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import tunes.be.Playlists;
 import tunes.be.Songs;
+import tunes.be.SongsInPlaylist;
 import tunes.bll.BllManager;
 
 /**
@@ -26,6 +27,8 @@ public class TunesModel {
     private MediaPlayer mediaplayer;
     private String filePath;
     private BllManager manager = new BllManager();
+    private ObservableList<SongsInPlaylist> songInP = FXCollections.observableArrayList();
+    private ObservableList<Songs> someSongs = FXCollections.observableArrayList();
     private ObservableList<Songs> allSongs = FXCollections.observableArrayList();
     private ObservableList<Playlists> allPlaylists = FXCollections.observableArrayList();
     public void playSelectedSong(Songs selectedSong)
@@ -45,6 +48,24 @@ public class TunesModel {
         mediaplayer.play(); 
         }
     }
+    /*public void playSelectedSongInPlaylist(SongsInPlaylist songin)
+    { 
+        switch(isPlaying)
+        {
+            case 1:
+        mediaplayer.pause();
+        isPlaying=0;
+        break;
+            case 0:
+               File file = new File(songin.getPath());
+        filePath = file.toURI().toString();
+        Media media = new Media(filePath);
+        mediaplayer = new MediaPlayer(media);
+        isPlaying=1;
+        mediaplayer.play(); 
+        }
+    }
+*/
     public void loadPlaylists() throws SQLException
     {
         allPlaylists.clear();
@@ -78,23 +99,35 @@ public class TunesModel {
 }
     public void closeWindow(Button button)
     {
-        Stage stage = (Stage) button.getScene().getWindow();
+       Stage stage = (Stage) button.getScene().getWindow();
        stage.close();
     }
     public void delete(Songs selectedSong)
     {
         manager.delete(selectedSong);
         allSongs.remove(selectedSong);
+        
     }
     public void deletePlaylist(Playlists playlist)
     {
         manager.deletePlaylist(playlist);
         allPlaylists.remove(playlist);
     }
+    public void deleteSongsInPlaylist(SongsInPlaylist songInPlaylist)
+    {
+        manager.deleteSongsInPlaylist(songInPlaylist);
+        songInP.remove(songInPlaylist);
+        
+    }
     public ObservableList<Songs> getSongsByQuery(String part)
     {
         allSongs.setAll(manager.getSongsByQuery(part));
         return allSongs;
+    }
+    public ObservableList<SongsInPlaylist> getSongsById(int id)
+    {
+        songInP.setAll(manager.getSongsById(id));
+        return songInP;
     }
     public void edit(Songs song) throws SQLException
     {
@@ -109,5 +142,29 @@ public class TunesModel {
     public MediaPlayer getMediaPlayer()
     {
         return mediaplayer;
+    }
+    public void addSongsToPlaylist(Songs song,Playlists playlist, int listOrder)
+    { 
+        manager.addSongsToPlaylist(song, playlist, listOrder);
+    }
+    public ObservableList<SongsInPlaylist> test()
+    {
+    ObservableList<SongsInPlaylist> test = FXCollections.observableArrayList();
+        for(Songs song : allSongs)
+        {
+            
+            for(SongsInPlaylist sdas : songInP)
+            {
+               song.getId();
+               sdas.getInfo();
+               if(song.getId()==sdas.getInfo())
+               {
+                   sdas.setTitle(song.getTitle());
+                   sdas.setPath(song.getPath());
+                   test.add(sdas);
+               }
+            }
+        }
+        return test;
     }
 }

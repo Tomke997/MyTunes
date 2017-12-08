@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 import tunes.be.Playlists;
 import tunes.be.Songs;
+import tunes.be.SongsInPlaylist;
 import tunes.dal.ConnectionManager;
 
 /**
@@ -53,4 +54,16 @@ public class BllManager {
     {
         cm.deletePlaylist(playlist);
     }
+    public void addSongsToPlaylist(Songs song,Playlists playlist, int listOrder)
+    {
+        cm.addSongsToPlaylist(song, playlist, listOrder);
+    }
+   public List<SongsInPlaylist> getSongsById(int id)
+   {
+       return cm.getSongsById(id);
+   }
+   public void deleteSongsInPlaylist(SongsInPlaylist songInPlaylist)
+   {
+       cm.deleteSongsInPlaylist(songInPlaylist);
+   }
 }
