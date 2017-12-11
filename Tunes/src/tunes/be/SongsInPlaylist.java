@@ -14,7 +14,19 @@ public class SongsInPlaylist {
     private int info;
     private int PlayList;
     private int sortOrder;
+    private String title;
+    private String path;
+    private Float duration;
 
+    public Float getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Float duration) {
+        this.duration = duration;
+    }
+
+    
     public int getSortOrder() {
         return sortOrder;
     }
@@ -22,9 +34,6 @@ public class SongsInPlaylist {
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
     }
-
-    private String title;
-    private String path;
 
     public String getPath() {
         return path;

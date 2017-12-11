@@ -40,7 +40,7 @@
             <Image url="@../../images/volume.png" />
          </image>
       </ImageView>
-      <TableView fx:id="songsTable" layoutX="510.0" layoutY="129.0" prefHeight="392.0" prefWidth="399.0">
+      <TableView fx:id="songsTable" layoutX="510.0" layoutY="129.0" onMouseClicked="#clearSongInPlaylistSelection" prefHeight="392.0" prefWidth="399.0">
         <columns>
           <TableColumn fx:id="columnTitle" prefWidth="138.0" text="Title" />
           <TableColumn fx:id="columnArtist" prefWidth="107.0" text="Artist" />
@@ -52,7 +52,7 @@
       <Button fx:id="newButton" layoutX="512.0" layoutY="535.0" mnemonicParsing="false" onAction="#newSongs" text="New" />
       <Button fx:id="editButton" layoutX="641.0" layoutY="536.0" mnemonicParsing="false" onAction="#editSongs" text="Edit" />
       <Button fx:id="deleteButton" layoutX="571.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteSongs" text="Delete" />
-      <ListView fx:id="songsInPlaylist" layoutX="238.0" layoutY="129.0" prefHeight="392.0" prefWidth="208.0" />
+      <ListView fx:id="songsInPlaylist" layoutX="238.0" layoutY="129.0" onMouseClicked="#clearSongSelection" prefHeight="392.0" prefWidth="208.0" />
       <TextField fx:id="txtSearch" layoutX="751.0" layoutY="33.0" prefHeight="25.0" prefWidth="100.0" />
       <Button fx:id="searchButton" layoutX="868.0" layoutY="33.0" mnemonicParsing="false" onAction="#search" prefHeight="25.0" prefWidth="37.0" />
       <ImageView fx:id="searchImage" disable="true" fitHeight="25.0" fitWidth="22.0" layoutX="876.0" layoutY="35.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
@@ -86,7 +86,18 @@
             <Image url="@../../images/arrowL.png" />
          </image>
       </ImageView>
-      <Button fx:id="downButton" layoutX="257.0" layoutY="523.0" mnemonicParsing="false" onAction="#down" text="Button" />
+      <Button fx:id="upButton" layoutX="257.0" layoutY="523.0" mnemonicParsing="false" onAction="#up" prefHeight="34.0" prefWidth="27.0" />
       <Button fx:id="deleteSongsInPlaylist" layoutX="395.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteSongsInPlaylist" text="Delete" />
+      <Button fx:id="downButton" layoutX="301.0" layoutY="523.0" mnemonicParsing="false" onAction="#down" prefHeight="34.0" prefWidth="27.0" />
+      <ImageView disable="true" fitHeight="28.0" fitWidth="17.0" layoutX="262.0" layoutY="527.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/arrowU.png" />
+         </image>
+      </ImageView>
+      <ImageView disable="true" fitHeight="25.0" fitWidth="17.0" layoutX="306.0" layoutY="528.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/arrowD.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

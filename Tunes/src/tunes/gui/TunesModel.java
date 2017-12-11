@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import tunes.be.Playlists;
 import tunes.be.Songs;
 import tunes.be.SongsInPlaylist;
@@ -26,17 +27,16 @@ public class TunesModel {
     private int isPlaying=0;
     private MediaPlayer mediaplayer;
     private String filePath;
-    private BllManager manager = new BllManager();
-    private ObservableList<SongsInPlaylist> songInP = FXCollections.observableArrayList();
-    private ObservableList<Songs> someSongs = FXCollections.observableArrayList();
-    private ObservableList<Songs> allSongs = FXCollections.observableArrayList();
-    private ObservableList<Playlists> allPlaylists = FXCollections.observableArrayList();
+    private final BllManager manager = new BllManager();
+    private final ObservableList<SongsInPlaylist> songInP = FXCollections.observableArrayList();
+    private final ObservableList<Songs> allSongs = FXCollections.observableArrayList();
+    private final ObservableList<Playlists> allPlaylists = FXCollections.observableArrayList();
     public void playSelectedSong(Songs selectedSong)
     { 
         switch(isPlaying)
         {
             case 1:
-        mediaplayer.stop();
+        mediaplayer.pause();
         isPlaying=0;
         break;
             case 0:
@@ -45,10 +45,13 @@ public class TunesModel {
         Media media = new Media(filePath);
         mediaplayer = new MediaPlayer(media);
         isPlaying=1;
-        mediaplayer.play(); 
+        mediaplayer.setStopTime(Duration.minutes(selectedSong.getDuration()));
+        mediaplayer.play();
+
+ 
         }
     }
-    /*public void playSelectedSongInPlaylist(SongsInPlaylist songin)
+    public void playSelectedSongInPlaylist(SongsInPlaylist songin)
     { 
         switch(isPlaying)
         {
@@ -65,7 +68,7 @@ public class TunesModel {
         mediaplayer.play(); 
         }
     }
-*/
+
     public void loadPlaylists() throws SQLException
     {
         allPlaylists.clear();
@@ -112,12 +115,12 @@ public class TunesModel {
     {
         manager.deletePlaylist(playlist);
         allPlaylists.remove(playlist);
+        
     }
     public void deleteSongsInPlaylist(SongsInPlaylist songInPlaylist)
     {
         manager.deleteSongsInPlaylist(songInPlaylist);
-        songInP.remove(songInPlaylist);
-        
+      songInP.remove(songInPlaylist);   
     }
     public ObservableList<Songs> getSongsByQuery(String part)
     {
@@ -146,6 +149,7 @@ public class TunesModel {
     public void addSongsToPlaylist(Songs song,Playlists playlist, int listOrder)
     { 
         manager.addSongsToPlaylist(song, playlist, listOrder);
+        songInP.add(new SongsInPlaylist(song.getId(),playlist.getId(), listOrder));
     }
     public ObservableList<SongsInPlaylist> test()
     {
@@ -161,10 +165,34 @@ public class TunesModel {
                {
                    sdas.setTitle(song.getTitle());
                    sdas.setPath(song.getPath());
+                   sdas.setDuration(song.getDuration());
                    test.add(sdas);
+                   
                }
             }
         }
+        
         return test;
     }
+    public ObservableList<SongsInPlaylist> songInOrder()
+    {
+        ObservableList<SongsInPlaylist> order = FXCollections.observableArrayList();
+        for(int i=0;i<=test().size();i++)
+        {
+            for(SongsInPlaylist songinTest : test())
+            {
+                if(songinTest.getSortOrder()==i)
+                {
+                    order.add(songinTest);
+                }
+            }
+        }
+        return order;
+    }
+     public void updateSongInPlayList(SongsInPlaylist songinPlay)
+{
+ manager.updateSongInPlayList(songinPlay);
+ 
 }
+}
+

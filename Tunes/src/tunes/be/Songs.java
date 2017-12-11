@@ -15,10 +15,10 @@ public class Songs {
     private String title;
     private String artist;
     private String category;
-    private String duration;
+    private Float duration;
     private String path;
 
-    public Songs(int id, String title, String artist, String category, String duration, String path) {
+    public Songs(int id, String title, String artist, String category, Float duration, String path) {
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -36,11 +36,11 @@ public class Songs {
     }
 
 
-    public String getDuration() {
+    public Float getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(Float duration) {
         this.duration = duration;
     }
 

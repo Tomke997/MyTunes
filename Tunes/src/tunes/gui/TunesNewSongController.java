@@ -70,7 +70,7 @@ public class TunesNewSongController implements Initializable {
            selectedSong.setTitle(txtTitle.getText());
            selectedSong.setArtist(txtArtist.getText());
            selectedSong.setCategory(categoryBox.getSelectionModel().getSelectedItem());
-           selectedSong.setDuration(txtTime.getText());
+           selectedSong.setDuration(Float.valueOf(txtTime.getText()));
            selectedSong.setPath(txtFile.getText());
            
            model.edit(selectedSong);
@@ -79,7 +79,7 @@ public class TunesNewSongController implements Initializable {
         {
         model.addSong(new Songs(-1, txtTitle.getText(),
                 txtArtist.getText(),categoryBox.getSelectionModel().getSelectedItem(),
-                txtTime.getText(), txtFile.getText()));
+                Float.valueOf(txtTime.getText()), txtFile.getText()));
         }
         
         model.closeWindow(saveButton);
@@ -108,7 +108,7 @@ public class TunesNewSongController implements Initializable {
         {
         txtTitle.setText(selectedSong.getTitle());
         txtArtist.setText(selectedSong.getArtist());
-        txtTime.setText(selectedSong.getDuration());
+        txtTime.setText(""+selectedSong.getDuration());
         txtFile.setText(selectedSong.getPath());
        
         categoryBox.getSelectionModel().select(selectedSong.getCategory());

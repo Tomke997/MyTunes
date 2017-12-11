@@ -13,8 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,6 +56,7 @@ public class TunesViewController implements Initializable {
     private TableView<Songs> songsTable;
     private TunesModel model = new TunesModel();
     private int change=0;
+    private int isPlaying=0;
      
     @FXML
     private Button next;
@@ -83,7 +83,6 @@ public class TunesViewController implements Initializable {
     private ImageView SearchNotHot;
     @FXML
     private ImageView searchNotHot;
-    private int isPlaying=0;
     @FXML
     private ImageView imagePlay;
     @FXML
@@ -110,6 +109,8 @@ public class TunesViewController implements Initializable {
     private Button downButton;
     @FXML
     private Button deleteSongsInPlaylist;
+    @FXML
+    private Button upButton;
     /**
      * Initializes the controller class.
      * @param url
@@ -138,8 +139,30 @@ public class TunesViewController implements Initializable {
 
     @FXML
     private void play(ActionEvent event) throws SQLException {
+        SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
-         model.playSelectedSong(selectedSong); 
+        if(selectedSongInPlaylist!=null)
+        {
+            
+        model.playSelectedSongInPlaylist(selectedSongInPlaylist);
+        }
+        else if(selectedSong!=null)
+        {
+           model.playSelectedSong(selectedSong); 
+        }
+        switch(isPlaying)
+        {
+            case 0:
+            imagePlay.setVisible(false);
+            imageStop.setVisible(true);
+            isPlaying=1;
+                    break;
+            case 1:
+                imagePlay.setVisible(true);
+            imageStop.setVisible(false);
+            isPlaying=0;
+            break;
+        }
     }
 
     @FXML
@@ -314,23 +337,26 @@ private final void volume()
         Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
         selectedPlaylist.setSongs(songsInPlaylist.getItems().size()+1);
+        selectedPlaylist.setTime((selectedPlaylist.getTime()*60+selectedSong.getDuration()*60)/60);
         model.editPlaylist(selectedPlaylist);
         model.addSongsToPlaylist(selectedSong, selectedPlaylist,songsInPlaylist.getItems().size());
-        //songsInPlaylist.setItems(model.test());
+        songsInPlaylist.setItems(model.songInOrder());
+        
     }
 
     @FXML
-    private void clickedPlaylist(MouseEvent event) {
+    private void clickedPlaylist(MouseEvent event) throws SQLException {
         Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
-        model.getSongsById(selectedPlaylist.getId());
-        songsInPlaylist.setItems(model.test());
-        
+         model.getSongsById(selectedPlaylist.getId());
+        songsInPlaylist.setItems(model.songInOrder());
+       
     }
 
     @FXML
     private void down(ActionEvent event) {
-        System.out.println(""+songsInPlaylist.getItems().size());
-        
+       int dupa =model.getMediaPlayer().getCurrentTime().compareTo(model.getMediaPlayer().getStopTime());
+       model.getMediaPlayer().stop();
+           System.out.println("Kurwa");    
     }
 
     @FXML
@@ -338,10 +364,43 @@ private final void volume()
        SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
         Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
         model.deleteSongsInPlaylist(selectedSongInPlaylist); 
-        selectedPlaylist.setSongs(songsInPlaylist.getItems().size()-1);
+       selectedPlaylist.setSongs(songsInPlaylist.getItems().size()-1);
+       selectedPlaylist.setTime((selectedPlaylist.getTime()*60-selectedSongInPlaylist.getDuration()*60)/60);
         model.editPlaylist(selectedPlaylist);
-        songsInPlaylist.setItems(model.test());
+       songsInPlaylist.setItems(model.songInOrder());
+       updateSongsIn();
+       
         
+    }
+
+    @FXML
+    private void up(ActionEvent event) {
+        System.out.println(""+model.getMediaPlayer().getStatus()); 
+        System.out.println(""+model.getMediaPlayer().getStopTime());
+        System.out.println(""+model.getMediaPlayer().getCurrentTime());
+    }
+    public void updateSongsIn()
+    {
+        ObservableList<SongsInPlaylist> songInPlay = FXCollections.observableArrayList();
+        songInPlay.setAll(songsInPlaylist.getItems());
+        int i=0;
+            for(SongsInPlaylist songInP : songInPlay )
+            {
+                songInP.setSortOrder(i);
+               // System.out.println(""+songInP.getSortOrder());
+                model.updateSongInPlayList(songInP);
+                i++;
+            }
+    }
+
+    @FXML
+    private void clearSongInPlaylistSelection(MouseEvent event) {
+        songsInPlaylist.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void clearSongSelection(MouseEvent event) {
+        songsTable.getSelectionModel().clearSelection();
     }
     }
 

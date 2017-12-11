@@ -39,6 +39,7 @@ public class TunesDeletePlayListController implements Initializable {
     @FXML
     private void Yes(ActionEvent event) throws SQLException {
         model.deletePlaylist(selectedPlaylist);
+        
         model.closeWindow(btYes);
     }
 

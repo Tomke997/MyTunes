@@ -53,7 +53,7 @@ public void setModelAndPlaylist(TunesModel model, Playlists selectedPlaylist) {
         }
         if(selectedPlaylist==null)
         {
-        model.addPlaylist(new Playlists(-1, textBar.getText(), "00:00:00", 0));
+        model.addPlaylist(new Playlists(-1, textBar.getText(), 0f, 0));
         }
         model.closeWindow(btSave);
         

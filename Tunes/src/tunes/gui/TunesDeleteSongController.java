@@ -38,7 +38,7 @@ public class TunesDeleteSongController implements Initializable {
     @FXML
     private void yes(ActionEvent event) {
         model.delete(selectedSong);
-        model.closeWindow(yesButton);
+        model.closeWindow(yesButton);       
     }
 
     @FXML

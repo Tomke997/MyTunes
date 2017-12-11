@@ -66,4 +66,8 @@ public class BllManager {
    {
        cm.deleteSongsInPlaylist(songInPlaylist);
    }
+    public void updateSongInPlayList(SongsInPlaylist songinPlay)
+    {
+        cm.updateSongInPlayList(songinPlay);
+    }
 }

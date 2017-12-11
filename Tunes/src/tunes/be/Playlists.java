@@ -53,13 +53,13 @@ public class Playlists {
         this.name = name;
     }
 
-    private String time;
+    private Float time;
 
-    public String getTime() {
+    public Float getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Float time) {
         this.time = time;
     }
 
@@ -73,7 +73,7 @@ public class Playlists {
         this.songs = songs;
     }
 
-    public Playlists(int id, String name, String time, int songs) {
+    public Playlists(int id, String name, Float time, int songs) {
         this.id = id;
         this.name = name;
         this.time = time;

@@ -39,7 +39,7 @@ public class ConnectionManager {
                      rs.getString("title"),
                      rs.getString("artist"),
                      rs.getString("category"),
-                     rs.getString("duration"),
+                     rs.getFloat("duration"),
                      rs.getString("path"));
              
              allSongs.add(s); 
@@ -63,7 +63,7 @@ public class ConnectionManager {
             pstmt.setString(1, song.getTitle());
             pstmt.setString(2, song.getArtist());
             pstmt.setString(3, song.getCategory());
-            pstmt.setString(4, song.getDuration());
+            pstmt.setFloat(4, song.getDuration());
             pstmt.setString(5, song.getPath());
 
             int affected = pstmt.executeUpdate();
@@ -117,7 +117,7 @@ public class ConnectionManager {
                      rs.getString("title"),
                      rs.getString("artist"),
                      rs.getString("category"),
-                     rs.getString("duration"),
+                     rs.getFloat("duration"),
                      rs.getString("path"));
                 
                 songsByQuery.add(s);
@@ -139,7 +139,7 @@ public class ConnectionManager {
             pstmt.setString(1, song.getTitle());
             pstmt.setString(2, song.getArtist());
             pstmt.setString(3, song.getCategory());
-            pstmt.setString(4, song.getDuration());
+            pstmt.setFloat(4, song.getDuration());
             pstmt.setString(5, song.getPath());
             pstmt.setInt(6, song.getId());
 
@@ -162,7 +162,7 @@ public class ConnectionManager {
          ResultSet rs = pstmt.executeQuery();
             while(rs.next())
             {
-             Playlists p = new Playlists(rs.getInt("id"), rs.getString("name"),rs.getString("time"),rs.getInt("songs"));
+             Playlists p = new Playlists(rs.getInt("id"), rs.getString("name"),rs.getFloat("time"),rs.getInt("songs"));
              
              allPlaylists.add(p); 
             }
@@ -184,7 +184,7 @@ public class ConnectionManager {
                             sql, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, playlist.getName());
             pstmt.setInt(2, playlist.getSongs());
-            pstmt.setString(3, playlist.getTime());
+            pstmt.setFloat(3, playlist.getTime());
             
 
             int affected = pstmt.executeUpdate();
@@ -211,7 +211,7 @@ public class ConnectionManager {
                     = con.prepareStatement(sql);
             pstmt.setString(1, playlist.getName());
             pstmt.setInt(2, playlist.getSongs());
-            pstmt.setString(3, playlist.getTime());
+            pstmt.setFloat(3, playlist.getTime());
             pstmt.setInt(4, playlist.getId());
 
             int affected = pstmt.executeUpdate();
@@ -306,6 +306,29 @@ public class ConnectionManager {
         }
         catch (SQLException ex) {
             Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void updateSongInPlayList(SongsInPlaylist songinPlay)
+    {
+        try (Connection con = cc.getConnection()) {
+            String sql
+                    = "UPDATE SongsInPlaylists SET "
+                    + "PlayList=?, sortOrder=? "
+                    + "WHERE info=?";
+            PreparedStatement pstmt
+                    = con.prepareStatement(sql);
+            pstmt.setInt(1, songinPlay.getPlayList());
+            pstmt.setInt(2, songinPlay.getSortOrder());
+            pstmt.setInt(3, songinPlay.getInfo());
+            int affected = pstmt.executeUpdate();     
+            if (affected<1)
+                throw new SQLException("Songs In Playlist could not be updated");
+
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        
         }
     }
 }
