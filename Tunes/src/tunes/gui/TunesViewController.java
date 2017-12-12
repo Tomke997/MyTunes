@@ -451,12 +451,17 @@ public class TunesViewController implements Initializable {
     private void deleteSongsInPlaylist(ActionEvent event) throws SQLException {
        SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
         Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
+       if(selectedPlaylist==null||selectedSongInPlaylist==null)
+       {}
+       else
+       {
         model.deleteSongsInPlaylist(selectedSongInPlaylist); 
         selectedPlaylist.setTime(selectedPlaylist.getTime()-selectedSongInPlaylist.getDuration());
        selectedPlaylist.setSongs(songsInPlaylist.getItems().size()-1);
         model.editPlaylist(selectedPlaylist);
        songsInPlaylist.setItems(model.songInOrder());
        updateSongsIn();
+       }
     }
 /*
     moves song in playlist up on the list

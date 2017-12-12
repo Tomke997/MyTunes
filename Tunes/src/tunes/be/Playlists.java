@@ -79,7 +79,4 @@ public class Playlists {
         this.time = time;
         this.songs = songs;
     }
-
-    
-
 }

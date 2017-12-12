@@ -79,7 +79,5 @@ public class SongsInPlaylist {
     @Override
     public String toString() {
         return title;
-    }
-
-    
+    }   
 }

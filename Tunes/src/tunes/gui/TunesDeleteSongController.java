@@ -46,10 +46,8 @@ public class TunesDeleteSongController implements Initializable {
         model.closeWindow(noButton);
     }
 
-
     void setModelAndSong(TunesModel model, Songs selectedSong) {
         this.model=model;
         this.selectedSong=selectedSong;
-    }
-    
+    }   
 }

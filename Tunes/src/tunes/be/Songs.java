@@ -83,8 +83,5 @@ public class Songs {
     @Override
     public String toString() {
         return getTitle();
-    }
-
-
-    
+    } 
 }

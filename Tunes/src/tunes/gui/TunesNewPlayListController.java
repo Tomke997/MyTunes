@@ -62,6 +62,5 @@ public void setModelAndPlaylist(TunesModel model, Playlists selectedPlaylist) {
     @FXML
     private void Cancel(ActionEvent event) {
         model.closeWindow(btCancel);
-    }
-    
+    }   
 }

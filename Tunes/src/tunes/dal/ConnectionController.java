@@ -31,6 +31,5 @@ public class ConnectionController {
     public Connection getConnection() throws SQLServerException
     {
         return ds.getConnection();
-    }
-    
+    }    
 }
