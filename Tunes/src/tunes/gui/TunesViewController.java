@@ -185,14 +185,28 @@ public class TunesViewController implements Initializable {
 
     @FXML
     private void previous(ActionEvent event) {
-        songsTable.getSelectionModel().selectPrevious();    
+        SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedSongInPlaylist!=null)
+        {
+        songsInPlaylist.getSelectionModel().selectPrevious();
+        }
+     else
+        {
+           songsTable.getSelectionModel().selectPrevious(); 
+        }    
     }
 
     @FXML
     private void next(ActionEvent event) {
- songsTable.getSelectionModel().selectNext();
-     
-     
+        SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedSongInPlaylist!=null)
+        {
+        songsInPlaylist.getSelectionModel().selectNext();
+        }
+     else
+        {
+           songsTable.getSelectionModel().selectNext(); 
+        }
     }
 
     @FXML
@@ -369,17 +383,7 @@ private final void volume()
     }
 
     @FXML
-    private void down(ActionEvent event) {
-       if(model.getMediaPlayer().getCycleCount()>0)
-       {
-         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
-           songsTable.getSelectionModel().selectNext();
-           model.getMediaPlayer().stop();
-           model.playSelectedSong(selectedSong);
-           model.playSelectedSong(selectedSong);
-           
-       }
-             
+    private void down(ActionEvent event) {      
     }
 
     @FXML
@@ -398,11 +402,6 @@ private final void volume()
 
     @FXML
     private void up(ActionEvent event) {
-        System.out.println(""+model.getMediaPlayer().getStatus()); 
-      //  System.out.println(""+model.getMediaPlayer().getStopTime());
-       // System.out.println(""+model.getMediaPlayer().getCurrentTime());
-       // System.out.println(""+model.getMediaPlayer().getCycleDuration());
-        System.out.println(""+model.getMediaPlayer().getCurrentCount());
     }
     public void updateSongsIn()
     {
@@ -412,7 +411,6 @@ private final void volume()
             for(SongsInPlaylist songInP : songInPlay )
             {
                 songInP.setSortOrder(i);
-               // System.out.println(""+songInP.getSortOrder());
                 model.updateSongInPlayList(songInP);
                 i++;
             }

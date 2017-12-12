@@ -50,13 +50,6 @@ public class TunesModel {
         mediaplayer = new MediaPlayer(media);
         isPlaying=1;
         mediaplayer.play();
-        
-       // mediaplayer.setOnEndOfMedia(new Runnable() {
-        //   @Override
-        //   public void run() {
-         //      System.out.println("Song over");
-         //  }
-     //  });
       }
     }
     /*
