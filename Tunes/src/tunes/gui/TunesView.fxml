@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Slider?>
@@ -22,14 +21,6 @@
             <Image url="@../../images/Start.png" />
          </image>
       </ImageView>
-      <ImageView disable="true" fitHeight="17.0" fitWidth="17.0" layoutX="167.0" layoutY="51.0" nodeOrientation="INHERIT" opacity="0.75" pickOnBounds="true" preserveRatio="true" x="1.0" AnchorPane.rightAnchor="758.0">
-         <image>
-            <Image url="@../../images/right.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="SW_RESIZE" />
-         </cursor>
-      </ImageView>
       <ImageView disable="true" fitHeight="13.0" fitWidth="33.0" layoutX="67.0" layoutY="51.0" opacity="0.75" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="66.0">
          <image>
             <Image url="@../../images/left.png" />
@@ -45,7 +36,7 @@
           <TableColumn fx:id="columnTitle" prefWidth="138.0" text="Title" />
           <TableColumn fx:id="columnArtist" prefWidth="107.0" text="Artist" />
             <TableColumn fx:id="columnCategory" prefWidth="83.0" text="Category" />
-            <TableColumn fx:id="columnTime" prefWidth="55.0" text="Time" />
+            <TableColumn fx:id="columnTime" prefWidth="70.0" text="Time" />
         </columns>
       </TableView>
       <Button fx:id="closeButton" layoutX="865.0" layoutY="535.0" mnemonicParsing="false" onAction="#close" text="Close" />
@@ -71,11 +62,11 @@
          </image>
       </ImageView>
       <Button fx:id="addToPlaylist" layoutX="456.0" layoutY="150.0" mnemonicParsing="false" onAction="#addToPlaylist" prefHeight="25.0" prefWidth="45.0" />
-      <TableView fx:id="playlistList" layoutX="18.0" layoutY="129.0" onMouseClicked="#clickedPlaylist" prefHeight="392.0" prefWidth="208.0">
+      <TableView fx:id="playlistList" layoutX="18.0" layoutY="129.0" onMouseClicked="#clickedPlaylist" prefHeight="392.0" prefWidth="201.0">
         <columns>
           <TableColumn fx:id="columnName" text="Name" />
           <TableColumn fx:id="columnSongs" prefWidth="59.0" text="Songs" />
-            <TableColumn fx:id="columnDuration" prefWidth="67.0" text="Time" />
+            <TableColumn fx:id="columnDuration" minWidth="0.0" prefWidth="68.0" text="Time" />
         </columns>
       </TableView>
       <Button fx:id="newPlaylist" layoutX="26.0" layoutY="536.0" mnemonicParsing="false" onAction="#newPlaylist" text="New" />
@@ -97,6 +88,11 @@
       <ImageView disable="true" fitHeight="25.0" fitWidth="17.0" layoutX="306.0" layoutY="528.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/arrowD.png" />
+         </image>
+      </ImageView>
+      <ImageView disable="true" fitHeight="25.0" fitWidth="16.0" layoutX="169.0" layoutY="51.0" opacity="0.75" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="759.0">
+         <image>
+            <Image url="@../../images/right.png" />
          </image>
       </ImageView>
     </children>

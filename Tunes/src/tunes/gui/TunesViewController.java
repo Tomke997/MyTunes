@@ -279,7 +279,7 @@ public class TunesViewController implements Initializable {
             Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
             controller.setModelAndSong(model, selectedSong);
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Are you sure");
+            stage.setTitle("Delete Song");
             stage.setScene(new Scene(root));
             stage.showAndWait();
         } catch (IOException ex) {
@@ -381,7 +381,7 @@ public class TunesViewController implements Initializable {
             Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
             controller.setModelAndPlaylist(model, selectedPlaylist);
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Are you sure");
+            stage.setTitle("Delete Playlist");
             stage.setScene(new Scene(root));
             stage.showAndWait();
         } catch (IOException ex) {
@@ -408,8 +408,14 @@ public class TunesViewController implements Initializable {
     @FXML
     private void clickedPlaylist(MouseEvent event) throws SQLException {
         Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
-         model.getSongsById(selectedPlaylist.getId());
+         if(selectedPlaylist==null)
+         {    
+         }
+         else
+         {
+        model.getSongsById(selectedPlaylist.getId());
         songsInPlaylist.setItems(model.songInOrder());
+         }
        
     }
 /*
