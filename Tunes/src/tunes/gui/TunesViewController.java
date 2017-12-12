@@ -56,6 +56,7 @@ public class TunesViewController implements Initializable {
     private TunesModel model = new TunesModel();
     private int change=0;
     private int isPlaying=0;
+    private int y=0;
      
     @FXML
     private Button next;
@@ -383,7 +384,28 @@ private final void volume()
     }
 
     @FXML
-    private void down(ActionEvent event) {      
+    private void down(ActionEvent event) {   
+        SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
+        ObservableList<SongsInPlaylist> listOfSongs = songsInPlaylist.getItems();
+        int a = songsInPlaylist.getItems().indexOf(selectedSongInPlaylist);
+        for (SongsInPlaylist songInPlaylist : listOfSongs) {    
+            if(a==listOfSongs.size()-1)
+            {
+                break;
+            }
+            if(y == a) {
+                SongsInPlaylist tempSong = listOfSongs.get(y+1);
+                listOfSongs.set(y+1, songInPlaylist);
+                listOfSongs.set(y, tempSong); 
+                break;
+            }
+            else {
+               y++; 
+            }
+                
+        }
+        y = 0;
+       // updateSongsIn();
     }
 
     @FXML
@@ -402,7 +424,27 @@ private final void volume()
 
     @FXML
     private void up(ActionEvent event) {
+        SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
+        ObservableList<SongsInPlaylist> listOfSongs = songsInPlaylist.getItems();
+        int a = songsInPlaylist.getItems().indexOf(selectedSongInPlaylist);
+        for (SongsInPlaylist songInPlaylist : listOfSongs) {
+            if(a == 0)
+                break;
+            if(y == a) {
+                SongsInPlaylist tempSong = listOfSongs.get(y-1);
+                listOfSongs.set(y-1, songInPlaylist);
+                listOfSongs.set(y, tempSong); 
+                break;
+            }
+            else {
+               y++; 
+            }
+                
+        }
+        y = 0;
+        updateSongsIn();
     }
+    
     public void updateSongsIn()
     {
         ObservableList<SongsInPlaylist> songInPlay = FXCollections.observableArrayList();
