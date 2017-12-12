@@ -15,7 +15,9 @@ import java.sql.Connection;
  */
 public class ConnectionController {
     private SQLServerDataSource ds = new SQLServerDataSource();
-
+    /*
+    method that connects program to the database 
+    */
     public ConnectionController() {
         ds.setDatabaseName("OurTunes");
         ds.setUser("CS2017B_27_java");
@@ -23,6 +25,9 @@ public class ConnectionController {
         ds.setPortNumber(1433);
         ds.setServerName("10.176.111.31");
     }
+    /*
+    returns getConnection!
+    */
     public Connection getConnection() throws SQLServerException
     {
         return ds.getConnection();

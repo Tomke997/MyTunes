@@ -25,7 +25,9 @@ import tunes.be.SongsInPlaylist;
  */
 public class ConnectionManager {
     private ConnectionController cc = new ConnectionController();
-    
+    /*
+    method that takes all songs from database to list
+    */
     public List<Songs> getAllSongs() throws SQLServerException, SQLException
     {
         List<Songs> allSongs = new ArrayList();
@@ -51,6 +53,9 @@ public class ConnectionManager {
           }
         return allSongs;
 }
+    /*
+    this method adds created songs to the database
+    */
     public void addSong(Songs song) {
         try (Connection con = cc.getConnection()) {
             String sql
@@ -81,7 +86,9 @@ public class ConnectionManager {
                     Level.SEVERE, null, ex);
         }
     }
-    
+    /*
+    this method deletes song fom database
+    */
     public void delete(Songs selectedSong) {
         try (Connection con = cc.getConnection()) {
             String sql
@@ -95,6 +102,9 @@ public class ConnectionManager {
             Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /*
+    this method takes all songs form database that have in title or in artist query
+    */
     public List<Songs> getSongsByQuery(String part)
         {
 
@@ -128,6 +138,9 @@ public class ConnectionManager {
         }
         return songsByQuery;
     }
+    /*
+    this method changes in database song that has been changed inside program
+    */
     public void edit(Songs song) {
         try (Connection con = cc.getConnection()) {
             String sql
@@ -153,6 +166,9 @@ public class ConnectionManager {
                     Level.SEVERE, null, ex);
         }
     }
+    /*
+    this method takes all playlists form the database to the list
+    */
     public List<Playlists> getPlaylists() throws SQLServerException, SQLException
     {
         List<Playlists> allPlaylists = new ArrayList();
@@ -173,6 +189,9 @@ public class ConnectionManager {
           }
         return allPlaylists;
 }
+    /*
+    this method adds playlist to the database
+    */
     public void addPlaylist(Playlists playlist) {
         try (Connection con = cc.getConnection()) {
             String sql
@@ -201,6 +220,9 @@ public class ConnectionManager {
                     Level.SEVERE, null, ex);
         }
     }
+    /*
+    this method changes playlist inside database
+    */
     public void editPlaylist(Playlists playlist) {
         try (Connection con = cc.getConnection()) {
             String sql
@@ -225,6 +247,10 @@ public class ConnectionManager {
         
         }
     }
+    /*
+    method that deletes playlist from database and also
+    deletes all songsInPlaylist that were inside this playlist
+    */
     public void deletePlaylist(Playlists playlist)
     {
         try (Connection con = cc.getConnection()) {
@@ -241,6 +267,9 @@ public class ConnectionManager {
             Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /*
+    method that adds songsInPlaylist to the database
+    */
     public void addSongsToPlaylist(Songs song,Playlists playlist, int listOrder)
     {
         try (Connection con = cc.getConnection()) {
@@ -268,6 +297,9 @@ public class ConnectionManager {
                     Level.SEVERE, null, ex);
         }
     }
+    /*
+    method that takes from the database songsInPlaylist that have guery(id)
+    */
     public List<SongsInPlaylist> getSongsById(int id)
     {
         List<SongsInPlaylist> songsById = new ArrayList();
@@ -293,6 +325,9 @@ public class ConnectionManager {
         }
         return songsById;
     }
+    /*
+    method that deletes songsInPlaylist from the database
+    */
     public void deleteSongsInPlaylist(SongsInPlaylist songInPlaylist)
     {
        try (Connection con = cc.getConnection()) {
@@ -308,6 +343,9 @@ public class ConnectionManager {
             Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /*
+    method that updatest songsImPlaylists inside database
+    */
     public void updateSongInPlayList(SongsInPlaylist songinPlay)
     {
         try (Connection con = cc.getConnection()) {

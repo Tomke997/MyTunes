@@ -30,7 +30,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tunes.be.Playlists;
@@ -125,7 +124,7 @@ public class TunesViewController implements Initializable {
        columnTime.setCellValueFactory(new PropertyValueFactory("duration")); 
        columnName.setCellValueFactory(new PropertyValueFactory("name"));
        columnSongs.setCellValueFactory(new PropertyValueFactory("songs"));
-       columnDuration.setCellValueFactory(new PropertyValueFactory("time"));      
+       columnDuration.setCellValueFactory(new PropertyValueFactory("time")); 
         try {
             model.loadPlaylists();
             model.loadAllSongs();
@@ -135,6 +134,8 @@ public class TunesViewController implements Initializable {
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
          volume();
+         
+         
     }    
 
     @FXML
@@ -143,12 +144,29 @@ public class TunesViewController implements Initializable {
         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
         if(selectedSongInPlaylist!=null)
         {
-            
-        model.playSelectedSongInPlaylist(selectedSongInPlaylist);
+         model.playSelectedSongInPlaylist(selectedSongInPlaylist);
+         model.getMediaPlayer().setOnEndOfMedia(new Runnable() {
+           @Override
+           public void run() {
+           songsInPlaylist.getSelectionModel().selectNext();
+           model.getMediaPlayer().stop();
+           model.playSelectedSongInPlaylist(selectedSongInPlaylist);
+           model.playSelectedSongInPlaylist(selectedSongInPlaylist);
+           }
+       });
         }
         else if(selectedSong!=null)
         {
            model.playSelectedSong(selectedSong); 
+           model.getMediaPlayer().setOnEndOfMedia(new Runnable() {
+           @Override
+           public void run() {
+           songsTable.getSelectionModel().selectNext();
+           model.getMediaPlayer().stop();
+           model.playSelectedSong(selectedSong);
+           model.playSelectedSong(selectedSong);
+           }
+       });
         }
         switch(isPlaying)
         {
@@ -229,9 +247,7 @@ public class TunesViewController implements Initializable {
             root = loader.load();
             TunesDeleteSongController controller = loader.getController();
             Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
-      
             controller.setModelAndSong(model, selectedSong);
-            
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Are you sure");
             stage.setScene(new Scene(root));
@@ -337,7 +353,7 @@ private final void volume()
         Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
         selectedPlaylist.setSongs(songsInPlaylist.getItems().size()+1);
-        selectedPlaylist.setTime((selectedPlaylist.getTime()*60+selectedSong.getDuration()*60)/60);
+        selectedPlaylist.setTime(selectedPlaylist.getTime()+selectedSong.getDuration());
         model.editPlaylist(selectedPlaylist);
         model.addSongsToPlaylist(selectedSong, selectedPlaylist,songsInPlaylist.getItems().size());
         songsInPlaylist.setItems(model.songInOrder());
@@ -354,9 +370,16 @@ private final void volume()
 
     @FXML
     private void down(ActionEvent event) {
-       int dupa =model.getMediaPlayer().getCurrentTime().compareTo(model.getMediaPlayer().getStopTime());
-       model.getMediaPlayer().stop();
-           System.out.println("Kurwa");    
+       if(model.getMediaPlayer().getCycleCount()>0)
+       {
+         Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
+           songsTable.getSelectionModel().selectNext();
+           model.getMediaPlayer().stop();
+           model.playSelectedSong(selectedSong);
+           model.playSelectedSong(selectedSong);
+           
+       }
+             
     }
 
     @FXML
@@ -364,8 +387,8 @@ private final void volume()
        SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
         Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
         model.deleteSongsInPlaylist(selectedSongInPlaylist); 
+        selectedPlaylist.setTime(selectedPlaylist.getTime()-selectedSongInPlaylist.getDuration());
        selectedPlaylist.setSongs(songsInPlaylist.getItems().size()-1);
-       selectedPlaylist.setTime((selectedPlaylist.getTime()*60-selectedSongInPlaylist.getDuration()*60)/60);
         model.editPlaylist(selectedPlaylist);
        songsInPlaylist.setItems(model.songInOrder());
        updateSongsIn();
@@ -376,8 +399,10 @@ private final void volume()
     @FXML
     private void up(ActionEvent event) {
         System.out.println(""+model.getMediaPlayer().getStatus()); 
-        System.out.println(""+model.getMediaPlayer().getStopTime());
-        System.out.println(""+model.getMediaPlayer().getCurrentTime());
+      //  System.out.println(""+model.getMediaPlayer().getStopTime());
+       // System.out.println(""+model.getMediaPlayer().getCurrentTime());
+       // System.out.println(""+model.getMediaPlayer().getCycleDuration());
+        System.out.println(""+model.getMediaPlayer().getCurrentCount());
     }
     public void updateSongsIn()
     {
