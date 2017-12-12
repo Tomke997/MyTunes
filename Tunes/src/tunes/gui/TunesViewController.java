@@ -138,7 +138,10 @@ public class TunesViewController implements Initializable {
          
          
     }    
-
+/*
+    method that plays selected song from song list and from playlists 
+    also is responsible for autoplay
+    */
     @FXML
     private void play(ActionEvent event) throws SQLException {
         SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
@@ -183,7 +186,9 @@ public class TunesViewController implements Initializable {
             break;
         }
     }
-
+/*
+    selects previous song from playlist or from playlists
+    */
     @FXML
     private void previous(ActionEvent event) {
         SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
@@ -196,7 +201,9 @@ public class TunesViewController implements Initializable {
            songsTable.getSelectionModel().selectPrevious(); 
         }    
     }
-
+/*
+    selects next song from playlist or from playlists
+    */
     @FXML
     private void next(ActionEvent event) {
         SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
@@ -209,12 +216,16 @@ public class TunesViewController implements Initializable {
            songsTable.getSelectionModel().selectNext(); 
         }
     }
-
+/*
+    closes the main window
+    */
     @FXML
     private void close(ActionEvent event) {
         model.closeWindow(closeButton);
     }
-
+/*
+    opens window where you can add song 
+    */
     @FXML
     private void newSongs(ActionEvent event) {  
         try {
@@ -232,7 +243,9 @@ public class TunesViewController implements Initializable {
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+/*
+    opens window where you can edit song
+    */
     @FXML
     private void editSongs(ActionEvent event) {
         try {
@@ -252,7 +265,9 @@ public class TunesViewController implements Initializable {
         }
    
     }
-
+/*
+    opens window where you can delete song
+    */
     @FXML
     private void deleteSongs(ActionEvent event) {
         try {
@@ -271,7 +286,9 @@ public class TunesViewController implements Initializable {
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+/*
+    method responsible for searching songs 
+    */
     @FXML
     private void search(ActionEvent event) throws SQLException {
        switch(change)
@@ -296,7 +313,10 @@ public class TunesViewController implements Initializable {
        }
        
     }
-private final void volume()
+/*
+    makes slider responsible for volume 
+    */
+    private final void volume()
 {
     slider.setValue(100);
     slider.valueProperty().addListener(new InvalidationListener() {
@@ -306,7 +326,9 @@ private final void volume()
         }
     });
 }
-
+/*
+    opens window where you can add playlist
+    */
     @FXML
     private void newPlaylist(ActionEvent event) {
         try {
@@ -324,7 +346,9 @@ private final void volume()
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
-
+/*
+    opens window where you can edit playlist
+    */
     @FXML
     private void editPlaylist(ActionEvent event) {
         try {
@@ -343,7 +367,9 @@ private final void volume()
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+/*
+    opens window where you can delete playlist
+    */
     @FXML
     private void deletePlaylist(ActionEvent event) {
        try {
@@ -362,7 +388,9 @@ private final void volume()
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+/*
+    adds song to playlist 
+    */
     @FXML
     private void addToPlaylist(ActionEvent event) throws SQLException {
         Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
@@ -374,7 +402,9 @@ private final void volume()
         songsInPlaylist.setItems(model.songInOrder());
         
     }
-
+/*
+    shows songs in playlist when the playlist is clicked
+    */
     @FXML
     private void clickedPlaylist(MouseEvent event) throws SQLException {
         Playlists selectedPlaylist = playlistList.getSelectionModel().getSelectedItem();
@@ -382,7 +412,9 @@ private final void volume()
         songsInPlaylist.setItems(model.songInOrder());
        
     }
-
+/*
+    moves song in playlist down on the list
+    */
     @FXML
     private void down(ActionEvent event) {   
         SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
@@ -406,7 +438,9 @@ private final void volume()
         }
         y = 0;
     }
-
+/*
+    deletes song from playlist
+    */
     @FXML
     private void deleteSongsInPlaylist(ActionEvent event) throws SQLException {
        SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
@@ -417,10 +451,10 @@ private final void volume()
         model.editPlaylist(selectedPlaylist);
        songsInPlaylist.setItems(model.songInOrder());
        updateSongsIn();
-       
-        
     }
-
+/*
+    moves song in playlist up on the list
+    */
     @FXML
     private void up(ActionEvent event) {
         SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
@@ -442,7 +476,9 @@ private final void volume()
         y = 0;
         updateSongsIn();
     }
-    
+    /*
+    updates songs in playlist
+    */
     public void updateSongsIn()
     {
         ObservableList<SongsInPlaylist> songInPlay = FXCollections.observableArrayList();

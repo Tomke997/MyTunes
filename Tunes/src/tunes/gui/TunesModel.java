@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import tunes.be.Playlists;
 import tunes.be.Songs;
 import tunes.be.SongsInPlaylist;
