@@ -36,7 +36,6 @@ public class Playlists {
         return songsInPlaylist;
     }
     
-
     public int getId() {
         return id;
     }

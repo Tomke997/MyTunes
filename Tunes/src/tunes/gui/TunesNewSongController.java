@@ -57,6 +57,7 @@ public class TunesNewSongController implements Initializable {
     private void cancel(ActionEvent event) {
         model.closeWindow(cancelButton);
     }
+    
     public void setModelAndSong(TunesModel model, Songs selectedSong) {
         this.model=model;
         this.selectedSong=selectedSong;
@@ -96,11 +97,13 @@ public class TunesNewSongController implements Initializable {
         
         txtFile.setText(filePath);
     }
+   
     @FXML
     private void more(ActionEvent event) 
     {
         categoryBox.getItems().setAll("Rock","Pop","Hip-Hop","Electronic","Jazz","Reggae","Blues","Country","Folk");
     }
+   
     private void fillArea()
     {
         
@@ -114,6 +117,7 @@ public class TunesNewSongController implements Initializable {
         categoryBox.getSelectionModel().select(selectedSong.getCategory());
         }      
     }
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         categoryBox.getItems().setAll("Rock","Pop","Hip-Hop");

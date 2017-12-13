@@ -26,7 +26,6 @@ public class SongsInPlaylist {
         this.duration = duration;
     }
 
-    
     public int getSortOrder() {
         return sortOrder;
     }
@@ -43,7 +42,6 @@ public class SongsInPlaylist {
         this.path = path;
     }
 
-
     public String getTitle() {
         return title;
     }
@@ -52,7 +50,6 @@ public class SongsInPlaylist {
         this.title = title;
     }
 
-
     public int getPlayList() {
         return PlayList;
     }
@@ -60,7 +57,6 @@ public class SongsInPlaylist {
     public void setPlayList(int PlayList) {
         this.PlayList = PlayList;
     }
-
 
     public int getInfo() {
         return info;

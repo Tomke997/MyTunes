@@ -34,17 +34,20 @@ public class TunesNewPlayListController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }   
+    
 public void setModelAndPlaylist(TunesModel model, Playlists selectedPlaylist) {
         this.model=model;
         this.selectedPlaylist=selectedPlaylist;
         if(selectedPlaylist!=null)
        textBar.setText(selectedPlaylist.getName());
     }
-    @FXML
+   
+@FXML
     private void Save(ActionEvent event) throws SQLException {
         if(selectedPlaylist!=null)
         {

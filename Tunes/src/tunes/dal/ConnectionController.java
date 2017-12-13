@@ -14,6 +14,7 @@ import java.sql.Connection;
  * @author Pepe15224
  */
 public class ConnectionController {
+    
     private SQLServerDataSource ds = new SQLServerDataSource();
     /*
     method that connects program to the database 

@@ -35,7 +35,6 @@ public class Songs {
         this.path = path;
     }
 
-
     public Float getDuration() {
         return duration;
     }
@@ -43,7 +42,6 @@ public class Songs {
     public void setDuration(Float duration) {
         this.duration = duration;
     }
-
 
     public String getCategory() {
         return category;
@@ -53,7 +51,6 @@ public class Songs {
         this.category = category;
     }
 
-
     public String getArtist() {
         return artist;
     }
@@ -62,7 +59,6 @@ public class Songs {
         this.artist = artist;
     }
 
-
     public String getTitle() {
         return title;
     }
@@ -70,7 +66,6 @@ public class Songs {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public int getId() {
         return id;
