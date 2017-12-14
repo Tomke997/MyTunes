@@ -118,7 +118,7 @@ public class TunesViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+       Float.intBitsToFloat(2);
        columnTitle.setCellValueFactory(new PropertyValueFactory("title"));
        columnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
        columnCategory.setCellValueFactory(new PropertyValueFactory("category"));
@@ -126,6 +126,7 @@ public class TunesViewController implements Initializable {
        columnName.setCellValueFactory(new PropertyValueFactory("name"));
        columnSongs.setCellValueFactory(new PropertyValueFactory("songs"));
        columnDuration.setCellValueFactory(new PropertyValueFactory("time")); 
+      
         try {
             model.loadPlaylists();
             model.loadAllSongs();
@@ -144,37 +145,11 @@ public class TunesViewController implements Initializable {
     */
     @FXML
     private void play(ActionEvent event) throws SQLException {
-        SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
-        Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
-        if(selectedSongInPlaylist!=null)
-        {
-         model.playSelectedSongInPlaylist(selectedSongInPlaylist);
-         model.getMediaPlayer().setOnEndOfMedia(new Runnable() {
-           @Override
-           public void run() {
-           songsInPlaylist.getSelectionModel().selectNext();
-           model.getMediaPlayer().stop();
-           model.playSelectedSongInPlaylist(selectedSongInPlaylist);
-           model.playSelectedSongInPlaylist(selectedSongInPlaylist);
-           }
-       });
-        }
-        else if(selectedSong!=null)
-        {
-           model.playSelectedSong(selectedSong); 
-           model.getMediaPlayer().setOnEndOfMedia(new Runnable() {
-           @Override
-           public void run() {
-           songsTable.getSelectionModel().selectNext();
-           model.getMediaPlayer().stop();
-           model.playSelectedSong(selectedSong);
-           model.playSelectedSong(selectedSong);
-           }
-       });
-        }
-        switch(isPlaying)
+       
+            switch(isPlaying)
         {
             case 0:
+                playSongs();
             imagePlay.setVisible(false);
             imageStop.setVisible(true);
             isPlaying=1;
@@ -182,9 +157,59 @@ public class TunesViewController implements Initializable {
             case 1:
                 imagePlay.setVisible(true);
             imageStop.setVisible(false);
+            model.getMediaPlayer().stop();
             isPlaying=0;
             break;
         }
+    }
+    private void playSongs()
+    {
+        int index = songsTable.getSelectionModel().getSelectedIndex();
+       int indexIn = songsInPlaylist.getSelectionModel().getSelectedIndex();
+       SongsInPlaylist selectedSongInPlaylist = songsInPlaylist.getSelectionModel().getSelectedItem();
+       Songs selectedSong = songsTable.getSelectionModel().getSelectedItem();
+         if(selectedSongInPlaylist!=null)
+        {
+           model.playSelectedSongInPlaylist(songsInPlaylist.getSelectionModel().getSelectedItem()); 
+           model.getMediaPlayer().setOnEndOfMedia(new Runnable() {
+           @Override
+           public void run() {
+           songsInPlaylist.getSelectionModel().select(indexIn+1);
+           songsTable.getSelectionModel().clearSelection();
+           model.getMediaPlayer().stop();
+           model.playSelectedSongInPlaylist(songsInPlaylist.getSelectionModel().getSelectedItem());
+           if(indexIn==songsInPlaylist.getItems().size()+1)
+           {
+               model.getMediaPlayer().stop();
+           }
+           else
+           {
+           playSongs();
+           }
+           }
+       });
+        } 
+            if(selectedSong!=null)
+        {
+           model.playSelectedSong(songsTable.getSelectionModel().getSelectedItem()); 
+           model.getMediaPlayer().setOnEndOfMedia(new Runnable() {
+           @Override
+           public void run() {
+           songsTable.getSelectionModel().select(index+1);
+           songsInPlaylist.getSelectionModel().clearSelection();
+           model.getMediaPlayer().stop();
+           model.playSelectedSong(songsTable.getSelectionModel().getSelectedItem());
+           if(index==songsTable.getItems().size()+1)
+           {
+               model.getMediaPlayer().stop();
+           }
+           else
+           {
+           playSongs();
+           }
+           }
+       });
+        } 
     }
 /*
     selects previous song from playlist or from playlists

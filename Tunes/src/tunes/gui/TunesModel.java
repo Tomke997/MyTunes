@@ -36,20 +36,11 @@ public class TunesModel {
     */
     public void playSelectedSong(Songs selectedSong)
     { 
-        switch(isPlaying)
-        {
-            case 1:
-        mediaplayer.pause();
-        isPlaying=0;
-        break;
-            case 0:
-               File file = new File(selectedSong.getPath());
+   File file = new File(selectedSong.getPath());
         filePath = file.toURI().toString();
         Media media = new Media(filePath);
         mediaplayer = new MediaPlayer(media);
-        isPlaying=1;
         mediaplayer.play();
-      }
     }
     /*
     method that plays song from the songsInPlaylist and also
@@ -57,20 +48,12 @@ public class TunesModel {
     */
     public void playSelectedSongInPlaylist(SongsInPlaylist songin)
     { 
-        switch(isPlaying)
-        {
-            case 1:
-        mediaplayer.pause();
-        isPlaying=0;
-        break;
-            case 0:
-               File file = new File(songin.getPath());
+        File file = new File(songin.getPath());
         filePath = file.toURI().toString();
         Media media = new Media(filePath);
         mediaplayer = new MediaPlayer(media);
-        isPlaying=1;
         mediaplayer.play(); 
-        }
+        
     }
 /*
     method that clears list fo playlists and then fills it with
