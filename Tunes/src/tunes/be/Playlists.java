@@ -52,13 +52,13 @@ public class Playlists {
         this.name = name;
     }
 
-    private Float time;
+    private Double time;
 
-    public Float getTime() {
+    public Double getTime() {
         return time;
     }
 
-    public void setTime(Float time) {
+    public void setTime(Double time) {
         this.time = time;
     }
 
@@ -72,7 +72,7 @@ public class Playlists {
         this.songs = songs;
     }
 
-    public Playlists(int id, String name, Float time, int songs) {
+    public Playlists(int id, String name, Double time, int songs) {
         this.id = id;
         this.name = name;
         this.time = time;

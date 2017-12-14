@@ -16,13 +16,13 @@ public class SongsInPlaylist {
     private int sortOrder;
     private String title;
     private String path;
-    private Float duration;
+    private Double duration;
 
-    public Float getDuration() {
+    public Double getDuration() {
         return duration;
     }
 
-    public void setDuration(Float duration) {
+    public void setDuration(Double duration) {
         this.duration = duration;
     }
 
