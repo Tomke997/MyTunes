@@ -248,19 +248,20 @@ public class ConnectionManager {
         }
     }
     /*
-    method that deletes playlist from database and also
-    deletes all songsInPlaylist that were inside this playlist
+    method that deletes playlist from database and also i think that this method should
+    delete all songsInPlaylist that were inside this playlist because that makes sense to me
+    
     */
     public void deletePlaylist(Playlists playlist)
     {
         try (Connection con = cc.getConnection()) {
             String sql
-                    = "DELETE FROM PlayList WHERE id=? "+
-                    "DELETE FROM SongsInPlaylists WHERE PlayList=?";
+                    = "DELETE FROM PlayList WHERE id=? ";
+                    //+"DELETE FROM SongsInPlaylists WHERE PlayList=?";
             PreparedStatement pstmt
                     = con.prepareStatement(sql);
             pstmt.setInt(1, playlist.getId());
-            pstmt.setInt(2, playlist.getId());
+           // pstmt.setInt(2, playlist.getId());
             pstmt.execute();
         }
         catch (SQLException ex) {

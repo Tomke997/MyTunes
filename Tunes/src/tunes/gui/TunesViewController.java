@@ -118,7 +118,7 @@ public class TunesViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       Float.intBitsToFloat(2);
+
        columnTitle.setCellValueFactory(new PropertyValueFactory("title"));
        columnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
        columnCategory.setCellValueFactory(new PropertyValueFactory("category"));
@@ -136,12 +136,10 @@ public class TunesViewController implements Initializable {
             Logger.getLogger(TunesViewController.class.getName()).log(Level.SEVERE, null, ex);
         }  
          volume();
-         
-         
+   
     }    
 /*
-    method that plays selected song from song list and from playlists 
-    also is responsible for autoplay
+    method that plays selected song and is responsible for play images
     */
     @FXML
     private void play(ActionEvent event) throws SQLException {
@@ -162,6 +160,10 @@ public class TunesViewController implements Initializable {
             break;
         }
     }
+    /*
+    plays songs from song list and from playlists 
+    also is responsible for autoplay
+    */
     private void playSongs()
     {
         int index = songsTable.getSelectionModel().getSelectedIndex();

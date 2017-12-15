@@ -3,17 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesViewController.java</file>
-            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesNewPlayListController.java</file>
             <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/be/SongsInPlaylist.java</file>
-            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesNewSongController.java</file>
+            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesNewPlayListController.java</file>
             <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/be/Playlists.java</file>
-            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/be/Songs.java</file>
-            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesDeleteSongController.java</file>
             <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/bll/BllManager.java</file>
-            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesModel.java</file>
+            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/dal/ConnectionManager.java</file>
             <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesDeleteSong.fxml</file>
+            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/dal/ConnectionController.java</file>
+            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesViewController.java</file>
+            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesNewSongController.java</file>
+            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/be/Songs.java</file>
+            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesModel.java</file>
+            <file>file:/C:/Users/Pepe15224/Desktop/100/netbeans/MyTunes/Tunes/src/tunes/gui/TunesDeletePlayListController.java</file>
         </group>
     </open-files>
 </project-private>
