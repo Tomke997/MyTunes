@@ -201,7 +201,7 @@ public class TunesViewController implements Initializable {
            songsInPlaylist.getSelectionModel().clearSelection();
            model.getMediaPlayer().stop();
            model.playSelectedSong(songsTable.getSelectionModel().getSelectedItem());
-           if(index==songsTable.getItems().size()+1)
+           if(index==songsTable.getItems().size()-1)
            {
                model.getMediaPlayer().stop();
            }
