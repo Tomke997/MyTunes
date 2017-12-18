@@ -17,7 +17,7 @@ public class ConnectionController {
     
     private SQLServerDataSource ds = new SQLServerDataSource();
     /*
-    method that connects program to the database 
+    method that connects to the database 
     */
     public ConnectionController() {
         ds.setDatabaseName("OurTunes");

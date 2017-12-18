@@ -52,18 +52,25 @@ public class TunesNewSongController implements Initializable {
      * Initializes the controller class.
      */
       
-
+/*
+    closes window when button is pressed
+    */
     @FXML
     private void cancel(ActionEvent event) {
         model.closeWindow(cancelButton);
     }
-    
+     /*
+    takes model and selected song and also fills area
+    */
     public void setModelAndSong(TunesModel model, Songs selectedSong) {
         this.model=model;
         this.selectedSong=selectedSong;
         fillArea();
     }
-
+/*
+    adds new song to database based on the text fields when selected song is null
+    otherwise it edits selected song based on the text fields
+    */
     @FXML
     private void save(ActionEvent event) throws IOException, SQLException {
         if(selectedSong !=null)
@@ -85,7 +92,9 @@ public class TunesNewSongController implements Initializable {
         
         model.closeWindow(saveButton);
     }
-
+/*
+    creates file chooser that fills text field with path to the chosen file
+    */
     @FXML
     private void chooseLocation(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -97,13 +106,17 @@ public class TunesNewSongController implements Initializable {
         
         txtFile.setText(filePath);
     }
-   
+   /*
+    button that fills combobox with other song types
+    */
     @FXML
     private void more(ActionEvent event) 
     {
         categoryBox.getItems().setAll("Rock","Pop","Hip-Hop","Electronic","Jazz","Reggae","Blues","Country","Folk");
     }
-   
+   /*
+    fills text fields with informations about selected song
+    */
     private void fillArea()
     {
         

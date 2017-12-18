@@ -34,18 +34,24 @@ public class TunesDeleteSongController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+/*
+    closes window and deletes song when yes button is pressed
+    */
     @FXML
     private void yes(ActionEvent event) {
         model.delete(selectedSong);
         model.closeWindow(yesButton);       
     }
-
+/*
+    closes window when no button is pressed
+    */
     @FXML
     private void no(ActionEvent event) {
         model.closeWindow(noButton);
     }
-
+ /*
+    takes model and selected song
+    */
     void setModelAndSong(TunesModel model, Songs selectedSong) {
         this.model=model;
         this.selectedSong=selectedSong;

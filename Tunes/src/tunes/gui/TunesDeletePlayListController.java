@@ -35,17 +35,24 @@ public class TunesDeletePlayListController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+/*
+    closes window and deletes playlist when yes button is pressed
+    */
     @FXML
     private void Yes(ActionEvent event) throws SQLException {
         model.deletePlaylist(selectedPlaylist);
         model.closeWindow(btYes);
     }
-
+/*
+    closes window when no butoon is pressed
+    */
     @FXML
     private void No(ActionEvent event) {
         model.closeWindow(btNo);
     }
+    /*
+    takes model and selected playlist
+    */
     public void setModelAndPlaylist(TunesModel model, Playlists selectedPlaylist) {
         this.model=model;
         this.selectedPlaylist=selectedPlaylist;

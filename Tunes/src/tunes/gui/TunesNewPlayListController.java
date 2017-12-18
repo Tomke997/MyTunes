@@ -39,14 +39,19 @@ public class TunesNewPlayListController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }   
-    
+     /*
+    takes model and selected song or model and name when selected playlist is null
+    */
 public void setModelAndPlaylist(TunesModel model, Playlists selectedPlaylist) {
         this.model=model;
         this.selectedPlaylist=selectedPlaylist;
         if(selectedPlaylist!=null)
        textBar.setText(selectedPlaylist.getName());
     }
-   
+   /*
+  it adds new playlist to database when the selectedPlaylist is null
+or it edits selected playlist when the button is pressed
+    */
 @FXML
     private void Save(ActionEvent event) throws SQLException {
         if(selectedPlaylist!=null)
@@ -61,7 +66,9 @@ public void setModelAndPlaylist(TunesModel model, Playlists selectedPlaylist) {
         model.closeWindow(btSave);
         
     }
-
+/*
+    closes window when button is pressed
+    */
     @FXML
     private void Cancel(ActionEvent event) {
         model.closeWindow(btCancel);
