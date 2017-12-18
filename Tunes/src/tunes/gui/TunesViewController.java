@@ -222,10 +222,13 @@ public class TunesViewController implements Initializable {
         if(selectedSongInPlaylist!=null)
         {
         songsInPlaylist.getSelectionModel().selectPrevious();
+        previousAndNext();
         }
      else
         {
            songsTable.getSelectionModel().selectPrevious(); 
+          previousAndNext();
+           
         }    
     }
 /*
@@ -237,10 +240,12 @@ public class TunesViewController implements Initializable {
         if(selectedSongInPlaylist!=null)
         {
         songsInPlaylist.getSelectionModel().selectNext();
+        previousAndNext();
         }
      else
         {
            songsTable.getSelectionModel().selectNext(); 
+           previousAndNext();
         }
     }
 /*
@@ -529,15 +534,54 @@ public class TunesViewController implements Initializable {
                 i++;
             }
     }
-
+/*
+    it clears song in playlist selection every time you press songsTable
+    */
     @FXML
     private void clearSongInPlaylistSelection(MouseEvent event) {
-        songsInPlaylist.getSelectionModel().clearSelection();
+        songsInPlaylist.getSelectionModel().clearSelection();   
+        
+            if(isPlaying==0)
+            {
+                playSongs();
+            imagePlay.setVisible(false);
+            imageStop.setVisible(true);
+            isPlaying=1;    
+        }
+            else
+            {
+                previousAndNext();
+            }
     }
-
+/*
+    it clears songsTable selection every time you press song in playlist
+    */
     @FXML
     private void clearSongSelection(MouseEvent event) {
-        songsTable.getSelectionModel().clearSelection();
+        songsTable.getSelectionModel().clearSelection(); 
+        if(isPlaying==0)
+            {
+                playSongs();
+            imagePlay.setVisible(false);
+            imageStop.setVisible(true);
+            isPlaying=1;    
+        }
+            else
+            {
+                previousAndNext();
+            }
+    }
+    /*
+    method that plays song and is responfible for changin images 
+    created to avoid copy pasting
+    */
+    private void previousAndNext()
+    {
+       model.getMediaPlayer().stop();
+        isPlaying=1;
+        imagePlay.setVisible(false);
+            imageStop.setVisible(true);
+           playSongs();
     }
     }
 
